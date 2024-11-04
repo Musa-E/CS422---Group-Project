@@ -8,34 +8,51 @@ size = Vector2(1152.25, 40)
 [node name="TestYarnScene" type="Node2D"]
 
 [node name="Yarn" parent="." instance=ExtResource("1_6labo")]
-position = Vector2(290, 143)
+position = Vector2(744, 48)
 
 [node name="LevelGeometry" type="Node2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="LevelGeometry"]
 position = Vector2(-1.90735e-06, -7.62939e-06)
-scale = Vector2(1, 1)
+metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelGeometry/StaticBody2D"]
 position = Vector2(30, 89)
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(73.7684, 22.5551, 335.416, 374.414, 72.6158, 279.683)
+metadata/_edit_lock_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D"]
+position = Vector2(30, 89)
+scale = Vector2(0.86758, 0.886719)
+polygon = PackedVector2Array(75, 23, 338.874, 377.797, 72, 279)
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(632, 648)
+rotation = -2.10312
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelGeometry/StaticBody2D3"]
+position = Vector2(30, 89)
+scale = Vector2(0.86758, 0.886719)
+polygon = PackedVector2Array(73.7684, 22.5551, 335.416, 374.414, 72.6158, 279.683)
+
+[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D3"]
 position = Vector2(30, 89)
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(75, 23, 338.874, 377.797, 72, 279)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="LevelGeometry"]
 position = Vector2(-1.90735e-06, -7.62939e-06)
-scale = Vector2(1, 1)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/StaticBody2D2"]
 position = Vector2(575.875, 628)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_md0fi")
+metadata/_edit_lock_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D2"]
 position = Vector2(-64, 400)
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(1401.6, 234.573, 1401.6, 279.683, 72, 279, 73.7684, 234.573)
+metadata/_edit_lock_ = true

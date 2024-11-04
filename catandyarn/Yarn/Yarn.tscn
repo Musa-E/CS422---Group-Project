@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bax30g2jqvhsw"]
+[gd_scene load_steps=6 format=3 uid="uid://bax30g2jqvhsw"]
 
 [ext_resource type="Script" path="res://Yarn/yarn.gd" id="1_2qhvn"]
+[ext_resource type="PhysicsMaterial" uid="uid://br8tjtpp4pch2" path="res://Yarn/YarnPhysicsMaterialBase.tres" id="1_22b5o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ocehp"]
 radius = 21.0238
@@ -14,14 +15,34 @@ gradient = SubResource("Gradient_jv16t")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Yarn" type="RigidBody2D"]
+[node name="YarnRoot" type="Node2D"]
+
+[node name="Yarn" type="RigidBody2D" parent="."]
+physics_material_override = ExtResource("1_22b5o")
 script = ExtResource("1_2qhvn")
 rope_segment_length = 0.5
+metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Yarn"]
 shape = SubResource("CircleShape2D_ocehp")
+metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Yarn"]
 texture = SubResource("GradientTexture2D_nalxt")
+metadata/_edit_lock_ = true
 
-[node name="StringSegments" type="Node2D" parent="."]
+[node name="StringSegments" type="Node2D" parent="Yarn"]
+metadata/_edit_lock_ = true
+
+[node name="VelocityDirection" type="Node2D" parent="."]
+visible = false
+
+[node name="PinJoint2D" type="PinJoint2D" parent="VelocityDirection"]
+position = Vector2(20, 0)
+node_a = NodePath("../../Yarn")
+
+[node name="Joint" type="Node2D" parent="."]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Joint"]
+position = Vector2(-8.74228e-07, -20)
+node_a = NodePath("../../Yarn")
