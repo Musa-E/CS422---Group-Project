@@ -19,7 +19,7 @@ fill_from = Vector2(0.5, 0.5)
 [node name="YarnRoot" type="Node2D" node_paths=PackedStringArray("joint_parent")]
 script = ExtResource("1_2qhvn")
 rope_segment_scene = ExtResource("3_fcxrx")
-rope_segment_length = 5.0
+rope_segment_length = 8.0
 rope_segment_height = 1.0
 joint_parent = NodePath("Joint")
 

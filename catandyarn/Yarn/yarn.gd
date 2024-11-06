@@ -49,13 +49,16 @@ func _physics_process(delta: float) -> void:
 	#        too small / there are not enough segments being created for how fast
 	#        the ball is rolling
 	var angle = yarn_body_component.rotation
-	var arc_len = abs((angle - last_rotation)) * 2 * PI
-	print(angle - last_rotation)
-	var createNewSegment = (arc_len >= rope_segment_length * 2)
+	var arc_len = (angle - last_rotation) * 2 * PI
+	var createNewSegment = (arc_len >= rope_segment_length || arc_len <= -rope_segment_length)
 
 	if createNewSegment:
+		# add a new segment to the rope
 		debug_segments += 1
 		print("Created new rope segment ", debug_segments)
 		last_rotation = yarn_body_component.rotation
 		create_new_rope_segment()
+		
+		# todo:: make the rope smaller with more yarn segments
+		#yarn_body_component.
 	
