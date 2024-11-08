@@ -20,12 +20,10 @@ fill_from = Vector2(0.5, 0.5)
 script = ExtResource("1_2qhvn")
 rope_segment_scene = ExtResource("3_fcxrx")
 rope_segment_length = 8.0
-rope_segment_height = 1.0
 joint_parent = NodePath("Joint")
 
 [node name="Yarn" type="RigidBody2D" parent="."]
 collision_layer = 2
-mass = 3.0
 physics_material_override = ExtResource("1_22b5o")
 metadata/_edit_lock_ = true
 
@@ -46,3 +44,4 @@ node_b = NodePath("../SoftBody2D/Bone-0")
 
 [node name="SoftBody2D" parent="Joint" instance=ExtResource("3_fcxrx")]
 position = Vector2(0, -23)
+polygons = [PackedInt32Array(7, 4, 5), PackedInt32Array(5, 6, 7), PackedInt32Array(11, 8, 9), PackedInt32Array(9, 10, 11), PackedInt32Array(15, 12, 13), PackedInt32Array(13, 14, 15), PackedInt32Array(19, 16, 17), PackedInt32Array(17, 18, 19), PackedInt32Array(23, 20, 21), PackedInt32Array(21, 22, 23), PackedInt32Array(27, 24, 25), PackedInt32Array(25, 26, 27), PackedInt32Array(31, 28, 29), PackedInt32Array(29, 30, 31)]

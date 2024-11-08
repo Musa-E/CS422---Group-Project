@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvnqws00oiiv"]
+[gd_scene load_steps=5 format=3 uid="uid://dvnqws00oiiv"]
 
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="1_6labo"]
+[ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="2_jbhkq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0fi"]
 size = Vector2(1152.25, 40)
@@ -10,60 +11,66 @@ size = Vector2(112, 104)
 
 [node name="TestYarnScene" type="Node2D"]
 
-[node name="Yarn" parent="." instance=ExtResource("1_6labo")]
-position = Vector2(744, 48)
-
 [node name="LevelGeometry" type="Node2D" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="LevelGeometry"]
+[node name="Slope2" type="StaticBody2D" parent="LevelGeometry"]
 position = Vector2(40, -32)
 metadata/_edit_lock_ = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelGeometry/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelGeometry/Slope2"]
 position = Vector2(30, 89)
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(73.7684, 22.5551, 335.416, 374.414, 72.6158, 279.683)
 metadata/_edit_lock_ = true
 
-[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D"]
+[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/Slope2"]
 position = Vector2(30, 89)
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(75, 23, 338.874, 377.797, 72, 279)
 metadata/_edit_lock_ = true
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="LevelGeometry"]
+[node name="Slope" type="StaticBody2D" parent="LevelGeometry"]
 position = Vector2(728, 416)
 rotation = -2.10312
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelGeometry/StaticBody2D3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelGeometry/Slope"]
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(73.7684, 22.5551, 335.416, 374.414, 72.6158, 279.683)
 
-[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D3"]
+[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/Slope"]
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(75, 23, 338.874, 377.797, 72, 279)
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="LevelGeometry"]
+[node name="Floor" type="StaticBody2D" parent="LevelGeometry"]
 position = Vector2(-1.90735e-06, -7.62939e-06)
+collision_layer = 0
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Floor"]
 position = Vector2(575.875, 628)
 shape = SubResource("RectangleShape2D_md0fi")
 metadata/_edit_lock_ = true
 
-[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D2"]
+[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/Floor"]
 position = Vector2(-64, 400)
 scale = Vector2(0.86758, 0.886719)
 polygon = PackedVector2Array(1401.6, 234.573, 1401.6, 279.683, 72, 279, 73.7684, 234.573)
 metadata/_edit_lock_ = true
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="LevelGeometry"]
-position = Vector2(552, 536)
+[node name="BOX" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(576, 448)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/BOX"]
 position = Vector2(72, 20)
 shape = SubResource("RectangleShape2D_1nmsi")
 
-[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/StaticBody2D4"]
+[node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/BOX"]
 polygon = PackedVector2Array(16, -32, 128, -32, 128, 72, 16, 72)
+
+[node name="LevelComponents" type="Node2D" parent="."]
+
+[node name="Yarn" parent="LevelComponents" instance=ExtResource("1_6labo")]
+position = Vector2(696, 320)
+
+[node name="Pin" parent="LevelComponents" instance=ExtResource("2_jbhkq")]
+position = Vector2(608, 408)

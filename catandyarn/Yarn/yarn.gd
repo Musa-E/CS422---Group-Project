@@ -1,9 +1,10 @@
 extends Node2D
 
 @export var rope_segment_scene: PackedScene = null
+@export var on_start_segments: int = 1
 # todo:: Get rope working then adjust the 
 @export var rope_segment_length: float
-@export_range(0, 1) var rope_segment_height: float
+#@export_range(0, 1) var rope_segment_height: float
 @export var joint_parent: Node2D
 @onready var initial_rope_segment: SoftBody2D = $"Joint/SoftBody2D"
 @onready var initial_joint: PinJoint2D = $"Joint/PinJoint2D"
@@ -18,6 +19,9 @@ func _ready() -> void:
 	rope_segments.append(initial_rope_segment)
 	initial_joint.node_a = yarn_body_component.get_path() # we are on the yarn
 	initial_joint.node_b = initial_rope_segment.get_node("Bone-0").get_path()
+	
+	for n in range(1, on_start_segments):
+		create_new_rope_segment()
 
 func create_new_rope_segment() -> void:
 	# define the new box
@@ -31,6 +35,10 @@ func create_new_rope_segment() -> void:
 	next_pinjoint.node_a = rope_segments[-2].get_node("Bone-3").get_path() # guaranteed to exist
 	next_pinjoint.node_b = rope_segments[-1].get_node("Bone-0").get_path()
 	rope_segments[-1].apply_impulse(rope_segments[-2].get_node("Bone-3").linear_velocity, rope_segments[-2].global_position)
+	next_pinjoint.bias = 1
+	
+	debug_segments += 1
+	print("Created new rope segment ", debug_segments)
 	
 ## Process physics on the yarn. When this method is called, a new segment of
 ## string should be attached to a the yarn.
@@ -54,11 +62,7 @@ func _physics_process(delta: float) -> void:
 
 	if createNewSegment:
 		# add a new segment to the rope
-		debug_segments += 1
-		print("Created new rope segment ", debug_segments)
 		last_rotation = yarn_body_component.rotation
-		create_new_rope_segment()
-		
-		# todo:: make the rope smaller with more yarn segments
-		#yarn_body_component.
+		#create_new_rope_segment()
+		# todo:: make the rope smaller with more yarn segments?
 	
