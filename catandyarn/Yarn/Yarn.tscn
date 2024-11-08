@@ -24,6 +24,7 @@ joint_parent = NodePath("Joint")
 
 [node name="Yarn" type="RigidBody2D" parent="."]
 collision_layer = 2
+mass = 2.0
 physics_material_override = ExtResource("1_22b5o")
 metadata/_edit_lock_ = true
 

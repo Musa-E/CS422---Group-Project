@@ -35,7 +35,7 @@ func create_new_rope_segment() -> void:
 	next_pinjoint.node_a = rope_segments[-2].get_node("Bone-3").get_path() # guaranteed to exist
 	next_pinjoint.node_b = rope_segments[-1].get_node("Bone-0").get_path()
 	rope_segments[-1].apply_impulse(rope_segments[-2].get_node("Bone-3").linear_velocity, rope_segments[-2].global_position)
-	next_pinjoint.bias = 1
+	next_pinjoint.bias = 0.9
 	
 	debug_segments += 1
 	print("Created new rope segment ", debug_segments)
