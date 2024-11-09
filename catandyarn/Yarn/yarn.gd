@@ -40,6 +40,28 @@ func create_new_rope_segment() -> void:
 	debug_segments += 1
 	print("Created new rope segment ", debug_segments)
 	
+func create_new_rope_segment_front() -> void:
+	# define the new box
+	var rope_segment := rope_segment_scene.instantiate()
+	var next_pinjoint := PinJoint2D.new()
+	joint_parent.add_child(next_pinjoint)
+	joint_parent.add_child(rope_segment)
+	next_pinjoint.global_position = rope_segments[0].get_node("Bone-0").global_position
+	rope_segment.global_position = next_pinjoint.global_position
+	rope_segments.insert(0, rope_segment)
+	
+	# update the starting pin joint and starting rope segment
+	initial_joint.node_b = rope_segment.get_node("Bone-0").get_path()
+	
+	# update the next joint with the new rope segment and the previous in the array
+	next_pinjoint.node_a = rope_segments[0].get_node("Bone-3").get_path() # guaranteed to exist
+	next_pinjoint.node_b = rope_segments[1].get_node("Bone-0").get_path()
+	rope_segments[0].apply_impulse(rope_segments[1].get_node("Bone-0").linear_velocity, rope_segments[1].global_position)
+	next_pinjoint.bias = 0.9
+	
+	debug_segments += 1
+	print("Created new rope segment ", debug_segments)
+	
 ## Process physics on the yarn. When this method is called, a new segment of
 ## string should be attached to a the yarn.
 func _physics_process(delta: float) -> void:
@@ -63,6 +85,6 @@ func _physics_process(delta: float) -> void:
 	if createNewSegment:
 		# add a new segment to the rope
 		last_rotation = yarn_body_component.rotation
-		#create_new_rope_segment()
+		create_new_rope_segment_front()
 		# todo:: make the rope smaller with more yarn segments?
 	

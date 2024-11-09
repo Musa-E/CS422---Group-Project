@@ -70,8 +70,8 @@ polygon = PackedVector2Array(16, -32, 128, -32, 128, 72, 16, 72)
 [node name="LevelComponents" type="Node2D" parent="."]
 
 [node name="Yarn" parent="LevelComponents" instance=ExtResource("1_6labo")]
-position = Vector2(706, 127)
-on_start_segments = 10
+position = Vector2(712, 280)
+on_start_segments = 4
 
 [node name="Pin" parent="LevelComponents" instance=ExtResource("2_jbhkq")]
 position = Vector2(608, 408)

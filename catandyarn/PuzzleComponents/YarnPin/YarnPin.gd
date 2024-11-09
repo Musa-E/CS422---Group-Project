@@ -18,4 +18,5 @@ func _on_body_entered(body: Node2D) -> void:
 	joint.bias = 0
 	joint.node_a = pin_body.get_path()
 	joint.node_b = body.get_path()
+	can_pin = false
 	
