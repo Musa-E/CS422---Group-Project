@@ -3,6 +3,9 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+@export var swipe_component: Area2D
+@export var animations: AnimationPlayer
+
 enum State {
 	IDLE,
 	MOVING,
@@ -18,6 +21,11 @@ func handle_input(delta: float) -> Vector2:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	var jump := 1 if Input.is_action_just_pressed("ui_accept") else 0
+	
+	# update the direction of the swipe
+	if direction < 0: swipe_component.scale.x = -1
+	if direction > 0: swipe_component.scale.x = 1
+	
 	return Vector2(direction, jump)
 	
 #func update_state(delta: float, current: State, input: Vector2) -> State:
@@ -39,8 +47,13 @@ func normal_movement(delta: float, input: Vector2) -> void:
 # code for when the player is attached to a rope. We should apply forces instead
 # of modifying the velocity directly.
 func attached_movement(delta: float, input: Vector2) -> void:
+	velocity = Vector2.ZERO
 	# we should update the velocity so the cat is moving to the 
 	# next bone on the rope
+	pass
+	
+func swipe(delta: float, input: Vector2) -> void:
+	# play animation that activates a hitbox
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -50,6 +63,9 @@ func _physics_process(delta: float) -> void:
 		attached_movement(delta, input)
 	else:
 		normal_movement(delta, input)
+		
+		if Input.is_action_just_pressed("swipe"):
+			swipe(delta, input)
 
 # Area component can only collide with the rope produced by the yarn.
 func _on_check_rope_touch_body_entered(body: Node2D) -> void:
