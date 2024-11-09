@@ -85,6 +85,6 @@ func _physics_process(delta: float) -> void:
 	if createNewSegment:
 		# add a new segment to the rope
 		last_rotation = yarn_body_component.rotation
-		create_new_rope_segment_front()
+		create_new_rope_segment()
 		# todo:: make the rope smaller with more yarn segments?
 	
