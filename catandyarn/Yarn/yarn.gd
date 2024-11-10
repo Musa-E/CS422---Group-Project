@@ -69,7 +69,6 @@ func create_new_rope_segment_front() -> void:
 	
 	if use_debug:
 		debug_segments += 1
-		print("Created new rope segment ", debug_segments)
 	
 func update_rope_path() -> void:
 	# get each bone in the softbody and update the points in the existing path

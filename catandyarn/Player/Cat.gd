@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
-# todo:: convert character controller to a rigidbody for better interaction with yarn & rope
+# todo:: convert character controller to a rigidbody for better interaction with yarn & rope physics.
 
 # export so we can toy around with these values later.
 @export var SPEED = 300.0
+@export var ACCELERATION = 50.0
 @export var CLIMB_SPEED = 4.0
 @export var JUMP_VELOCITY = -400.0
+@export var IMPULSE_MULTIPLIER = 10.0
 
 @export var swipe_component: Area2D
 @export var animations: AnimationPlayer
@@ -39,7 +41,17 @@ func handle_input(delta: float) -> Vector2:
 	#return State.IDLE
 	
 func normal_movement(delta: float, input: Vector2) -> void:
+	# let the player interact with the ground.
 	collision_mask = 1
+	
+	# todo:: This does not work with the existing way the player moves, 
+	#        x velocity is set after the velocity is set after detatching
+	#        from the rope. We should be adding the velocities and damping
+	if current_state == State.ATTACHED:
+		# set the velocity of the player to keep momentum from the rope
+		if len(attached_rope_segments) > 0:
+			velocity = attached_rope_segments.keys()[0].linear_velocity
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -48,8 +60,9 @@ func normal_movement(delta: float, input: Vector2) -> void:
 	if input.y != 0 and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	velocity.x = input.x * SPEED if input.x else move_toward(velocity.x, 0, SPEED)
+	velocity.x = input.x * SPEED if input.x else move_toward(velocity.x, 0, ACCELERATION)
 	current_state = State.MOVING if velocity.x != 0 else State.IDLE
+	#print(velocity)
 	move_and_slide()
 	
 # code for when the player is attached to a rope. We should apply forces instead
@@ -68,11 +81,16 @@ func attached_movement(delta: float, input: Vector2) -> void:
 	
 	# temporary
 	var direction := Input.get_axis("ui_up", "ui_down")
+	var impulse = Vector2.RIGHT * IMPULSE_MULTIPLIER * input.x
+	
+	# apply an impulse based on the movement direction to all nearby segments
+	for segment in attached_rope_segments:
+		segment.apply_central_force(impulse)
 	
 	# if we just latched onto the rope, find the closest offset on the path
 	if current_state != State.ATTACHED:
 		path_follow.progress = closest_offset
-	
+		
 	path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
 	# update the player position to be the global position of the pathfollow2D after all transformations
 	global_position = global_position.lerp(path_follow.global_position, 0.5)
@@ -107,5 +125,5 @@ func _on_check_rope_touch_body_entered(body: Node2D) -> void:
 func _on_check_rope_touch_body_exited(body: Node2D) -> void:
 	attached_rope_segments.erase(body) # remove the rope segment so we don't accidentally apply forces to it.
 	#print(attached_rope_segments)
-	#if len(attached_rope_segments) < 1:
-		#can_attach = false
+	if len(attached_rope_segments) < 1:
+		can_attach = false
