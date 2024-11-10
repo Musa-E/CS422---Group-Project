@@ -97,7 +97,7 @@ func _physics_process(delta: float) -> void:
 
 # Area component can only collide with the rope produced by the yarn.
 func _on_check_rope_touch_body_entered(body: Node2D) -> void:
-	attached_rope_segments[body.name] = body # add the rope segment so we can apply forces later.
+	attached_rope_segments[body] = null # add the rope segment so we can apply forces later.
 	if current_state == State.ATTACHED:
 		return
 	can_attach = true
@@ -107,7 +107,7 @@ func _on_check_rope_touch_body_entered(body: Node2D) -> void:
 
 # Area component can only collide with the rope produced by the yarn.
 func _on_check_rope_touch_body_exited(body: Node2D) -> void:
-	attached_rope_segments.erase(body.name) # remove the rope segment so we don't accidentally apply forces to it.
+	attached_rope_segments.erase(body) # remove the rope segment so we don't accidentally apply forces to it.
+	#print(attached_rope_segments)
 	if len(attached_rope_segments) < 1:
-		print("Stop allow attach")
-		#can_attach = false
+		can_attach = false
