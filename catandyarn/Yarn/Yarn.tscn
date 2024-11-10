@@ -64,9 +64,8 @@ curve = SubResource("Curve2D_qwnrv")
 cubic_interp = false
 loop = false
 
-[node name="Marker2D" type="Marker2D" parent="Joint/Path2D/PathFollow2D"]
-z_index = 999
-gizmo_extents = 94.2
+[node name="DebugMarker" type="Polygon2D" parent="Joint/Path2D/PathFollow2D"]
+polygon = PackedVector2Array(-3, -4, 1, -7, 6, -4, 1, 6)
 
 [node name="DebugLineDraw" type="MeshInstance2D" parent="Joint/Path2D"]
 mesh = SubResource("ImmediateMesh_fncgy")

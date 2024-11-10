@@ -9,6 +9,7 @@ extends Node2D
 @export var rope_path: Path2D # todo:: For some reason I need to set the offset of this inside of the editor to -722, -250, low priority bug
 @export var debug_line_draw: MeshInstance2D
 @export var allow_expanding_yarn: bool = false
+@export var yarn_mass: float = 2
 @onready var initial_rope_segment: SoftBody2D = $"Joint/SoftBody2D"
 @onready var initial_joint: PinJoint2D = $"Joint/PinJoint2D"
 @onready var rope_segments: Array[SoftBody2D] = []
@@ -22,6 +23,8 @@ func _ready() -> void:
 	rope_segments.append(initial_rope_segment)
 	initial_joint.node_a = yarn_body_component.get_path() # we are on the yarn
 	initial_joint.node_b = initial_rope_segment.get_node("Bone-0").get_path()
+	
+	yarn_body_component.mass = yarn_mass
 	
 	for n in range(1, on_start_segments):
 		create_new_rope_segment()
@@ -84,7 +87,7 @@ func update_rope_path() -> void:
 
 		for bone in segment.get_children():
 			if bone is RigidBody2D:
-				var gpos: Vector2 = bone.global_position
+				var gpos: Vector2 = bone.global_position - (global_position)
 				curve.add_point(gpos)
 
 	# draw the line in game if debug is active
