@@ -43,7 +43,7 @@ modifications/3 = SubResource("SkeletonModification2DLookAt_gbh51")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2w4w"]
 resource_local_to_scene = true
-size = Vector2(4, 8)
+size = Vector2(5, 2)
 
 [node name="SoftBody2D" type="Polygon2D"]
 position = Vector2(0, -2)
@@ -56,6 +56,7 @@ polygons = [PackedInt32Array(7, 4, 5), PackedInt32Array(5, 6, 7), PackedInt32Arr
 bones = ["Bone-0", PackedFloat32Array(1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Bone-1", PackedFloat32Array(0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Bone-2", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0), "Bone-3", PackedFloat32Array(0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1)]
 internal_vertex_count = 28
 script = ExtResource("2_co6v7")
+show_shapes = true
 vertex_interval = 5
 min_area = 0.1
 radius = 4
@@ -128,11 +129,9 @@ metadata/idx = 0
 metadata/bone_name = &"Bone-0"
 
 [node name="RectangleShape2D" type="CollisionShape2D" parent="Bone-0"]
-visible = false
 shape = SubResource("RectangleShape2D_j2w4w")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bone-0"]
-visible = false
 remote_path = NodePath("../../Skeleton2D/Bone-0")
 update_rotation = false
 update_scale = false
@@ -154,7 +153,7 @@ metadata/idx = 1
 metadata/bone_name = &"Bone-1"
 
 [node name="RectangleShape2D" type="CollisionShape2D" parent="Bone-1"]
-visible = false
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_j2w4w")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bone-1"]
@@ -187,7 +186,6 @@ metadata/idx = 2
 metadata/bone_name = &"Bone-2"
 
 [node name="RectangleShape2D" type="CollisionShape2D" parent="Bone-2"]
-visible = false
 shape = SubResource("RectangleShape2D_j2w4w")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bone-2"]
@@ -220,7 +218,6 @@ metadata/idx = 3
 metadata/bone_name = &"Bone-3"
 
 [node name="RectangleShape2D" type="CollisionShape2D" parent="Bone-3"]
-visible = false
 shape = SubResource("RectangleShape2D_j2w4w")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bone-3"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bax30g2jqvhsw"]
+[gd_scene load_steps=9 format=3 uid="uid://bax30g2jqvhsw"]
 
-[ext_resource type="Script" path="res://Yarn/yarn.gd" id="1_2qhvn"]
+[ext_resource type="Script" path="res://Yarn/Yarn.gd" id="1_2qhvn"]
 [ext_resource type="PhysicsMaterial" uid="uid://br8tjtpp4pch2" path="res://Yarn/YarnPhysicsMaterialBase.tres" id="1_22b5o"]
 [ext_resource type="PackedScene" uid="uid://6uvprn8e6ydi" path="res://Yarn/RopeSegment.tscn" id="3_fcxrx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ocehp"]
+resource_local_to_scene = true
 radius = 21.0238
 
 [sub_resource type="Gradient" id="Gradient_jv16t"]
@@ -16,60 +17,20 @@ gradient = SubResource("Gradient_jv16t")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_vnsfl"]
+[sub_resource type="Curve2D" id="Curve2D_qwnrv"]
 resource_local_to_scene = true
-bone_index = 0
-bone2d_node = NodePath("Bone-0")
-target_nodepath = NodePath("Bone-1")
-editor/draw_gizmo = false
 
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_fwtsg"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fncgy"]
 resource_local_to_scene = true
-bone_index = 1
-bone2d_node = NodePath("Bone-1")
-target_nodepath = NodePath("Bone-2")
-editor/draw_gizmo = false
 
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_hlax5"]
-resource_local_to_scene = true
-bone_index = 2
-bone2d_node = NodePath("Bone-2")
-target_nodepath = NodePath("Bone-3")
-editor/draw_gizmo = false
-
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_g8j0q"]
-resource_local_to_scene = true
-bone_index = 3
-bone2d_node = NodePath("Bone-3")
-target_nodepath = NodePath("Bone-4")
-editor/draw_gizmo = false
-
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_tp4vu"]
-resource_local_to_scene = true
-bone_index = 4
-bone2d_node = NodePath("Bone-4")
-target_nodepath = NodePath("Bone-3")
-editor/draw_gizmo = false
-
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_n5ml6"]
-resource_local_to_scene = true
-enabled = true
-modification_count = 5
-modifications/0 = SubResource("SkeletonModification2DLookAt_vnsfl")
-modifications/1 = SubResource("SkeletonModification2DLookAt_fwtsg")
-modifications/2 = SubResource("SkeletonModification2DLookAt_hlax5")
-modifications/3 = SubResource("SkeletonModification2DLookAt_g8j0q")
-modifications/4 = SubResource("SkeletonModification2DLookAt_tp4vu")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5b4f2"]
-resource_local_to_scene = true
-size = Vector2(3, 6)
-
-[node name="YarnRoot" type="Node2D" node_paths=PackedStringArray("joint_parent")]
+[node name="YarnRoot" type="Node2D" node_paths=PackedStringArray("joint_parent", "rope_path", "debug_line_draw")]
 script = ExtResource("1_2qhvn")
+skip_n_segments_for_path = 2
 rope_segment_scene = ExtResource("3_fcxrx")
 rope_segment_length = 8.0
 joint_parent = NodePath("Joint")
+rope_path = NodePath("Joint/Path2D")
+debug_line_draw = NodePath("Joint/Path2D/DebugLineDraw")
 
 [node name="Yarn" type="RigidBody2D" parent="."]
 collision_layer = 2
@@ -89,26 +50,23 @@ metadata/_edit_lock_ = true
 [node name="Joint" type="Node2D" parent="."]
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Joint"]
-position = Vector2(-8.74228e-07, -20)
+position = Vector2(0, -21)
 node_a = NodePath("../../Yarn")
 node_b = NodePath("../SoftBody2D/Bone-0")
 
 [node name="SoftBody2D" parent="Joint" instance=ExtResource("3_fcxrx")]
 position = Vector2(0, -23)
 
-[node name="Skeleton2D" parent="Joint/SoftBody2D" index="0"]
-modification_stack = SubResource("SkeletonModificationStack2D_n5ml6")
+[node name="Path2D" type="Path2D" parent="Joint"]
+curve = SubResource("Curve2D_qwnrv")
 
-[node name="RectangleShape2D" parent="Joint/SoftBody2D/Bone-0" index="0"]
-shape = SubResource("RectangleShape2D_5b4f2")
+[node name="PathFollow2D" type="PathFollow2D" parent="Joint/Path2D"]
+cubic_interp = false
+loop = false
 
-[node name="RectangleShape2D" parent="Joint/SoftBody2D/Bone-1" index="0"]
-shape = SubResource("RectangleShape2D_5b4f2")
+[node name="Marker2D" type="Marker2D" parent="Joint/Path2D/PathFollow2D"]
+z_index = 999
+gizmo_extents = 94.2
 
-[node name="RectangleShape2D" parent="Joint/SoftBody2D/Bone-2" index="0"]
-shape = SubResource("RectangleShape2D_5b4f2")
-
-[node name="RectangleShape2D" parent="Joint/SoftBody2D/Bone-3" index="0"]
-shape = SubResource("RectangleShape2D_5b4f2")
-
-[editable path="Joint/SoftBody2D"]
+[node name="DebugLineDraw" type="MeshInstance2D" parent="Joint/Path2D"]
+mesh = SubResource("ImmediateMesh_fncgy")

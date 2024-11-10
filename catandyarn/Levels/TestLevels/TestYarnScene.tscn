@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvnqws00oiiv"]
 
-[ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="1_6labo"]
-[ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="2_cxiyq"]
-[ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="2_jbhkq"]
+[ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="1_02mio"]
+[ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="2_oh1pi"]
+[ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="3_5db77"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0fi"]
-size = Vector2(1152.25, 40)
+size = Vector2(1152.25, 190)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1nmsi"]
 size = Vector2(112, 104)
@@ -47,14 +47,14 @@ position = Vector2(-1.90735e-06, -7.62939e-06)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Floor"]
-position = Vector2(575.875, 628)
+position = Vector2(575.875, 703)
 shape = SubResource("RectangleShape2D_md0fi")
 metadata/_edit_lock_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelGeometry/Floor"]
 position = Vector2(-64, 400)
 scale = Vector2(0.86758, 0.886719)
-polygon = PackedVector2Array(1401.6, 234.573, 1401.6, 279.683, 72, 279, 73.7684, 234.573)
+polygon = PackedVector2Array(1401.6, 234.573, 1402.75, 448.846, 73.7684, 447.718, 73.7684, 234.573)
 metadata/_edit_lock_ = true
 
 [node name="BOX" type="StaticBody2D" parent="LevelGeometry"]
@@ -69,12 +69,12 @@ polygon = PackedVector2Array(16, -32, 128, -32, 128, 72, 16, 72)
 
 [node name="LevelComponents" type="Node2D" parent="."]
 
-[node name="Yarn" parent="LevelComponents" instance=ExtResource("1_6labo")]
+[node name="Yarn" parent="LevelComponents" instance=ExtResource("1_02mio")]
 position = Vector2(720, 248)
 on_start_segments = 4
 
-[node name="Pin" parent="LevelComponents" instance=ExtResource("2_jbhkq")]
-position = Vector2(496, 272)
+[node name="Pin" parent="LevelComponents" instance=ExtResource("2_oh1pi")]
+position = Vector2(604, 411)
 
-[node name="Cat" parent="LevelComponents" instance=ExtResource("2_cxiyq")]
+[node name="Cat" parent="LevelComponents" instance=ExtResource("3_5db77")]
 position = Vector2(128, 560)
