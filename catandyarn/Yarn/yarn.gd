@@ -1,11 +1,15 @@
 extends Node2D
 
+@export var skip_n_segments_for_path = 0
 @export var rope_segment_scene: PackedScene = null
 @export var on_start_segments: int = 1
-# todo:: Get rope working then adjust the 
 @export var rope_segment_length: float
-#@export_range(0, 1) var rope_segment_height: float
+@export var use_debug = true
 @export var joint_parent: Node2D
+@export var rope_path: Path2D # todo:: For some reason I need to set the offset of this inside of the editor to -722, -250, low priority bug
+@export var debug_line_draw: MeshInstance2D
+@export var allow_expanding_yarn: bool = false
+@export var yarn_mass: float = 2
 @onready var initial_rope_segment: SoftBody2D = $"Joint/SoftBody2D"
 @onready var initial_joint: PinJoint2D = $"Joint/PinJoint2D"
 @onready var rope_segments: Array[SoftBody2D] = []
@@ -19,6 +23,8 @@ func _ready() -> void:
 	rope_segments.append(initial_rope_segment)
 	initial_joint.node_a = yarn_body_component.get_path() # we are on the yarn
 	initial_joint.node_b = initial_rope_segment.get_node("Bone-0").get_path()
+	
+	yarn_body_component.mass = yarn_mass
 	
 	for n in range(1, on_start_segments):
 		create_new_rope_segment()
@@ -37,12 +43,14 @@ func create_new_rope_segment() -> void:
 	rope_segments[-1].apply_impulse(rope_segments[-2].get_node("Bone-3").linear_velocity, rope_segments[-2].global_position)
 	next_pinjoint.bias = 0.9
 	
-	debug_segments += 1
-	print("Created new rope segment ", debug_segments)
+	if use_debug:
+		debug_segments += 1
+		print("Created new rope segment ", debug_segments)
 	
 func create_new_rope_segment_front() -> void:
 	# define the new box
 	var rope_segment := rope_segment_scene.instantiate()
+	rope_segment.show_shapes = true
 	var next_pinjoint := PinJoint2D.new()
 	joint_parent.add_child(next_pinjoint)
 	joint_parent.add_child(rope_segment)
@@ -59,8 +67,37 @@ func create_new_rope_segment_front() -> void:
 	rope_segments[0].apply_impulse(rope_segments[1].get_node("Bone-0").linear_velocity, rope_segments[1].global_position)
 	next_pinjoint.bias = 0.9
 	
-	debug_segments += 1
-	print("Created new rope segment ", debug_segments)
+	if use_debug:
+		debug_segments += 1
+	
+func update_rope_path() -> void:
+	# get each bone in the softbody and update the points in the existing path
+	# try clearing the points in the path and then rebuilding them
+	var curve := rope_path.curve
+	curve.clear_points()
+	# yes I know this is horribly unoptimized. Luckily the array of rope points
+	# will usually be relatively small (we're not talking hundreds of segments here)
+	var idx = skip_n_segments_for_path
+	for segment in rope_segments:
+		# todo:: dumb - wesley
+		if idx > 0:
+			idx -= 1
+			continue
+
+		for bone in segment.get_children():
+			if bone is RigidBody2D:
+				var gpos: Vector2 = bone.global_position - (global_position)
+				curve.add_point(gpos)
+
+	# draw the line in game if debug is active
+	if use_debug:
+		var geom: ImmediateMesh = debug_line_draw.mesh
+		geom.clear_surfaces()
+		geom.surface_begin(Mesh.PRIMITIVE_LINES)
+		for point in curve.get_baked_points():
+			geom.surface_add_vertex_2d(point)
+		geom.surface_end()
+	
 	
 ## Process physics on the yarn. When this method is called, a new segment of
 ## string should be attached to a the yarn.
@@ -82,9 +119,11 @@ func _physics_process(delta: float) -> void:
 	var arc_len = (angle - last_rotation) * 2 * PI
 	var createNewSegment = (arc_len >= rope_segment_length || arc_len <= -rope_segment_length)
 
-	if createNewSegment:
+	if createNewSegment and allow_expanding_yarn:
 		# add a new segment to the rope
 		last_rotation = yarn_body_component.rotation
-		create_new_rope_segment_front()
+		create_new_rope_segment()
 		# todo:: make the rope smaller with more yarn segments?
+		
+	update_rope_path()
 	

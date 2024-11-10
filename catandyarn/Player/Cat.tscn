@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://tpbw4ldbls7l"]
+
+[ext_resource type="Script" path="res://Player/Cat.gd" id="1_so0pf"]
+[ext_resource type="Script" path="res://Player/Swipe.gd" id="2_g1xiq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ye0js"]
+size = Vector2(48, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij8xi"]
+size = Vector2(80, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qy6en"]
+size = Vector2(24, 24)
+
+[node name="Cat" type="CharacterBody2D" node_paths=PackedStringArray("swipe_component")]
+collision_layer = 16
+script = ExtResource("1_so0pf")
+swipe_component = NodePath("Swipe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(1, 1.66667)
+color = Color(0.121569, 1, 0.384314, 1)
+polygon = PackedVector2Array(-24, -24, 24, -24, 24, -9.6, 24, 0, -16, 0, -24, 0, -24, -14.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_ye0js")
+
+[node name="CheckRopeTouch" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckRopeTouch"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_ij8xi")
+
+[node name="Swipe" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("2_g1xiq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Swipe"]
+position = Vector2(44, -20)
+shape = SubResource("RectangleShape2D_qy6en")
+
+[node name="Polygon2D" type="Polygon2D" parent="Swipe"]
+color = Color(0.792157, 0.211765, 0.101961, 1)
+polygon = PackedVector2Array(32, -32, 56, -32, 56, -8, 32, -8)
+
+[connection signal="body_entered" from="CheckRopeTouch" to="." method="_on_check_rope_touch_body_entered"]
+[connection signal="body_exited" from="CheckRopeTouch" to="." method="_on_check_rope_touch_body_exited"]
