@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc8jl5t4l7koh"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/Platforms/falling_platform.gd" id="1_bv0el"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q31wk"]
+size = Vector2(363, 61)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_1if1o"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(312, 127)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+script = ExtResource("1_bv0el")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_q31wk")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
+position = Vector2(3, 1.75)
+scale = Vector2(-363, 60.5)
+texture = SubResource("CanvasTexture_1if1o")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+position = Vector2(2, 0)
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_q31wk")
+
+[node name="Timer" type="Timer" parent="StaticBody2D/Area2D"]
+wait_time = 1.985
+one_shot = true
+
+[node name="ReappearTimer" type="Timer" parent="StaticBody2D"]
+wait_time = 2.612
+one_shot = true
+
+[connection signal="body_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="StaticBody2D/Area2D/Timer" to="StaticBody2D" method="_on_Timer_timeout"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3uew8y5q6t12"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/Platforms/moving_platform.gd" id="1_1cg62"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7dia0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mr3"]
+size = Vector2(542, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wv6e5"]
+size = Vector2(532, 49)
+
+[node name="Moving Platform" type="Node2D"]
+position = Vector2(359, 149)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(184, 128)
+script = ExtResource("1_1cg62")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0.499969, -9.53674e-07)
+scale = Vector2(539, 60)
+texture = SubResource("CanvasTexture_7dia0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_y8mr3")
+
+[node name="Waypoint1" type="Node2D" parent="StaticBody2D"]
+position = Vector2(7, -122)
+
+[node name="Waypoint2" type="Node2D" parent="StaticBody2D"]
+position = Vector2(-3, 123)
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_wv6e5")
