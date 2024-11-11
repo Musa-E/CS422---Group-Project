@@ -50,5 +50,10 @@ shape = SubResource("RectangleShape2D_qy6en")
 color = Color(0.792157, 0.211765, 0.101961, 1)
 polygon = PackedVector2Array(32, -32, 56, -32, 56, -8, 32, -8)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, -141)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
 [connection signal="body_entered" from="CheckRopeTouch" to="." method="_on_check_rope_touch_body_entered"]
 [connection signal="body_exited" from="CheckRopeTouch" to="." method="_on_check_rope_touch_body_exited"]
