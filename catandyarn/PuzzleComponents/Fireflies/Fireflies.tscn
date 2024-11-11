@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8e4sgux2rw6c"]
+
+[sub_resource type="Gradient" id="Gradient_0ut51"]
+offsets = PackedFloat32Array(0.345794, 0.57757)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q8y6k"]
+gradient = SubResource("Gradient_0ut51")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_y3fg7"]
+_data = [Vector2(0, 0.0178683), 0.0, 0.0, 0, 0, Vector2(0.364273, 0.099373), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_60uk1"]
+offsets = PackedFloat32Array(0, 0.362799)
+colors = PackedColorArray(1, 1, 0, 0, 1, 1, 0, 1)
+
+[node name="Fireflies" type="CPUParticles2D"]
+amount = 10
+lifetime = 1.25
+randomness = 1.0
+texture = SubResource("GradientTexture2D_q8y6k")
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.5
+initial_velocity_max = 60.14
+angular_velocity_min = -0.5
+orbit_velocity_min = -0.55
+orbit_velocity_max = 0.6
+radial_accel_min = 0.9
+radial_accel_max = 2.35
+tangential_accel_min = -0.45
+tangential_accel_max = 0.7
+angle_min = -108.6
+angle_max = 26.4
+scale_amount_min = 0.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_y3fg7")
+color_ramp = SubResource("Gradient_60uk1")
+hue_variation_min = -0.25
+hue_variation_max = 0.1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 0, 1)
+energy = 8.14
