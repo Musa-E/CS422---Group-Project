@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3uew8y5q6t12"]
 
-[ext_resource type="Script" path="res://moving_platform.gd" id="1_koma3"]
+[ext_resource type="Script" path="res://PuzzleComponents/Platforms/moving_platform.gd" id="1_1cg62"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_7dia0"]
 
@@ -15,7 +15,7 @@ position = Vector2(359, 149)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(184, 128)
-script = ExtResource("1_koma3")
+script = ExtResource("1_1cg62")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(0.499969, -9.53674e-07)

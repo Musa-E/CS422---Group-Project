@@ -127,3 +127,8 @@ func _on_check_rope_touch_body_exited(body: Node2D) -> void:
 	#print(attached_rope_segments)
 	if len(attached_rope_segments) < 1:
 		can_attach = false
+		
+@onready var camera = $Camera2D  # Reference to the Camera2D node
+
+func _ready():
+	camera.make_current()  # This sets this Camera2D as the active camera

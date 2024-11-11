@@ -7,7 +7,8 @@ extends StaticBody2D
 # Function that runs when the player lands on the platform
 func _on_Area2D_body_entered(body):
 	if body is CharacterBody2D:
-		break_timer.start()  # Start the timer to break the platform
+		break_timer.start() 
+		print("debug") # Start the timer to break the platform
 
 # Function to handle the break timer timeout
 func _on_Timer_timeout():
