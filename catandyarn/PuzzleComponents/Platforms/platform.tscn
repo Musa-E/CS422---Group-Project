@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://1hjphetypk26"]
+[gd_scene load_steps=3 format=3 uid="uid://0ufbwpfxchtd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qauct"]
 size = Vector2(148, 20)
@@ -16,6 +16,7 @@ position = Vector2(64, 0)
 shape = SubResource("RectangleShape2D_qauct")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
+modulate = Color(0.73, 0.38252, 0.3212, 1)
 position = Vector2(0, 1)
 scale = Vector2(148, 20)
 texture = SubResource("CanvasTexture_pcwns")

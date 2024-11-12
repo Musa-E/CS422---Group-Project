@@ -35,6 +35,9 @@ func handle_input(delta: float) -> Vector2:
 	if direction < 0: swipe_component.scale.x = -1
 	if direction > 0: swipe_component.scale.x = 1
 	
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://tutorial.tscn")
+	
 	return Vector2(direction, jump)
 	
 #func handle_state(delta: float, current: State, input: Vector2) -> State:

@@ -30,6 +30,7 @@ wait_time = 2.612
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+modulate = Color(0.83, 0.77854, 0.3154, 1)
 position = Vector2(-68.5, -11.25)
 scale = Vector2(159, 23.5)
 texture = SubResource("CanvasTexture_17bnx")

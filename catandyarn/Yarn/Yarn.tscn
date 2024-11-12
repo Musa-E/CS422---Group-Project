@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bax30g2jqvhsw"]
 
-[ext_resource type="Script" path="res://Yarn/Yarn.gd" id="1_2qhvn"]
+[ext_resource type="Script" path="res://Yarn/yarn.gd" id="1_2qhvn"]
 [ext_resource type="PhysicsMaterial" uid="uid://br8tjtpp4pch2" path="res://Yarn/YarnPhysicsMaterialBase.tres" id="1_22b5o"]
 [ext_resource type="PackedScene" uid="uid://6uvprn8e6ydi" path="res://Yarn/RopeSegment.tscn" id="3_fcxrx"]
 
@@ -10,7 +10,7 @@ radius = 21.0238
 
 [sub_resource type="Gradient" id="Gradient_jv16t"]
 offsets = PackedFloat32Array(0.470588, 0.475113)
-colors = PackedColorArray(0.647059, 0.180392, 0.172549, 1, 1, 1, 1, 0)
+colors = PackedColorArray(0.91, 0.256772, 0.2457, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nalxt"]
 gradient = SubResource("Gradient_jv16t")
@@ -56,6 +56,7 @@ node_b = NodePath("../SoftBody2D/Bone-0")
 
 [node name="SoftBody2D" parent="Joint" instance=ExtResource("3_fcxrx")]
 position = Vector2(0, -23)
+color = Color(0.83, 0.0581, 0.13529, 1)
 
 [node name="Path2D" type="Path2D" parent="Joint"]
 curve = SubResource("Curve2D_qwnrv")
