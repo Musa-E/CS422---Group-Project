@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvnqws00oiiv"]
+[gd_scene load_steps=6 format=3 uid="uid://dvnqws00oiiv"]
 
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="1_02mio"]
 [ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="2_oh1pi"]
 [ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="3_5db77"]
-[ext_resource type="PackedScene" uid="uid://bc8jl5t4l7koh" path="res://PuzzleComponents/Platforms/falling platform.tscn" id="4_u5aul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0fi"]
 size = Vector2(1152.25, 190)
@@ -78,7 +77,4 @@ on_start_segments = 4
 position = Vector2(604, 411)
 
 [node name="Cat" parent="LevelComponents" instance=ExtResource("3_5db77")]
-position = Vector2(132, 585)
-
-[node name="Node2D" parent="." instance=ExtResource("4_u5aul")]
-position = Vector2(380, 564)
+position = Vector2(128, 560)
