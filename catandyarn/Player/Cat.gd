@@ -28,8 +28,8 @@ var attached_rope_segments = {}
 func handle_input(delta: float) -> Vector2:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	var jump := 1 if Input.is_action_just_pressed("ui_accept") else 0
+	var direction := Input.get_axis("move_left", "move_right")
+	var jump := 1 if Input.is_action_just_pressed("jump") else 0
 	
 	# update the direction of the swipe
 	if direction < 0: swipe_component.scale.x = -1
@@ -80,7 +80,7 @@ func attached_movement(delta: float, input: Vector2) -> void:
 	var closest_offset = curve.get_closest_offset(path.to_local(global_position))
 	
 	# temporary
-	var direction := Input.get_axis("ui_up", "ui_down")
+	var direction := Input.get_axis("jump", "ui_down")
 	var impulse = Vector2.RIGHT * IMPULSE_MULTIPLIER * input.x
 	
 	# apply an impulse based on the movement direction to all nearby segments

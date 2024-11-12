@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddjv8kikxl0e1"]
+[gd_scene load_steps=14 format=3 uid="uid://ddjv8kikxl0e1"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_qbgbe"]
+[ext_resource type="Texture2D" uid="uid://bef15iqqonotx" path="res://assets/backgroundDefault.png" id="2_d6uyt"]
+[ext_resource type="Texture2D" uid="uid://cnnxtlot86ge3" path="res://assets/buttonText/buttonBackground.png" id="2_uiky6"]
+[ext_resource type="Texture2D" uid="uid://dn5awifosw2sg" path="res://assets/buttonText/Start.png" id="3_fjy0y"]
+[ext_resource type="Texture2D" uid="uid://doyru7jfks027" path="res://assets/titleTextOnMainMenu.png" id="3_k3v0y"]
+[ext_resource type="Texture2D" uid="uid://dcnjusmpm5bjd" path="res://assets/buttonText/StartHighlighted.png" id="4_ew8dt"]
+[ext_resource type="Texture2D" uid="uid://vruy4ev8i6rq" path="res://assets/buttonText/Continue.png" id="5_5va0a"]
+[ext_resource type="Texture2D" uid="uid://bi8swv1iv4gjx" path="res://assets/buttonText/ContinueHighlighted.png" id="6_rlrel"]
+[ext_resource type="Texture2D" uid="uid://dkyrt03hd2rcm" path="res://assets/buttonText/Settings.png" id="7_suick"]
+[ext_resource type="Texture2D" uid="uid://dom6y1d2u467w" path="res://assets/buttonText/SettingsHighlighted.png" id="8_14e2g"]
+[ext_resource type="Texture2D" uid="uid://d0lo2a2djapsq" path="res://assets/buttonText/Exit.png" id="9_dakof"]
+[ext_resource type="Texture2D" uid="uid://cq3m4onqotj7c" path="res://assets/buttonText/ExitHighlighted.png" id="10_7br8f"]
+[ext_resource type="Texture2D" uid="uid://catau5if6jyor" path="res://assets/catAndYarnImage.png" id="13_5o1f0"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -11,29 +23,60 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qbgbe")
 
+[node name="BackgroundDefault" type="Sprite2D" parent="."]
+position = Vector2(953, 524)
+texture = ExtResource("2_d6uyt")
+
+[node name="TitleTextOnMainMenu" type="Sprite2D" parent="."]
+position = Vector2(969, 106)
+texture = ExtResource("3_k3v0y")
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.367188
+anchor_top = 0.0972223
+anchor_right = -0.257812
+anchor_bottom = 0.275926
+offset_left = 797.0
+offset_top = 273.0
+offset_right = 876.0
+offset_bottom = 409.0
+scale = Vector2(1.68896, 1.55457)
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonBackground" type="Sprite2D" parent="MarginContainer"]
+position = Vector2(142.691, 169.822)
+scale = Vector2(0.658371, 0.643265)
+texture = ExtResource("2_uiky6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 27
 
-[node name="Start" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Start" type="TextureButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start"
+texture_normal = ExtResource("3_fjy0y")
+texture_hover = ExtResource("4_ew8dt")
 
-[node name="Continue" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Continue" type="TextureButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Continue"
+texture_normal = ExtResource("5_5va0a")
+texture_hover = ExtResource("6_rlrel")
 
-[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Settings" type="TextureButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+texture_normal = ExtResource("7_suick")
+texture_hover = ExtResource("8_14e2g")
 
-[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Exit" type="TextureButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Exit"
+texture_normal = ExtResource("9_dakof")
+texture_hover = ExtResource("10_7br8f")
+
+[node name="CatAndYarnImage" type="Sprite2D" parent="."]
+position = Vector2(1211, 930)
+texture = ExtResource("13_5o1f0")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
