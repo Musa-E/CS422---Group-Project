@@ -1,9 +1,9 @@
 extends StaticBody2D
 
-@onready var area = get_node("Area2D")
-@onready var break_timer = get_node("Area2D/Timer")  # Timer to break the platform
-@onready var reappear_timer = get_node("ReappearTimer")  # New timer to make it reappear
-@onready var collision_shape = $CollisionShape2D
+@export var area: Area2D
+@export var break_timer: Timer  # Timer to break the platform
+@export var reappear_timer: Timer  # New timer to make it reappear
+@export var collision_shape: CollisionShape2D 
 # Function that runs when the player lands on the platform
 func _on_Area2D_body_entered(body):
 	if body is CharacterBody2D:

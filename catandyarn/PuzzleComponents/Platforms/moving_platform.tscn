@@ -1,29 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3uew8y5q6t12"]
+[gd_scene load_steps=6 format=3 uid="uid://b3uew8y5q6t12"]
 
 [ext_resource type="Script" path="res://PuzzleComponents/Platforms/moving_platform.gd" id="1_1cg62"]
+[ext_resource type="Texture2D" uid="uid://cxl82e51t521q" path="res://PuzzleComponents/Platforms/airSigil.png" id="2_naego"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_7dia0"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_f8etn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mr3"]
-size = Vector2(542, 57)
+size = Vector2(143, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wv6e5"]
-size = Vector2(532, 49)
+size = Vector2(143, 18)
 
 [node name="Moving Platform" type="Node2D"]
 position = Vector2(359, 149)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(184, 128)
+position = Vector2(117, 137)
 script = ExtResource("1_1cg62")
 
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(16, -17.5)
+scale = Vector2(142, 19)
+texture = SubResource("CanvasTexture_f8etn")
+
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(0.499969, -9.53674e-07)
-scale = Vector2(539, 60)
-texture = SubResource("CanvasTexture_7dia0")
+modulate = Color(0.745098, 1, 1, 1)
+position = Vector2(16.5, -17.5)
+scale = Vector2(0.0539062, 0.0230303)
+texture = ExtResource("2_naego")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1, 0.5)
+position = Vector2(16.5, -17.5)
 shape = SubResource("RectangleShape2D_y8mr3")
 
 [node name="Waypoint1" type="Node2D" parent="StaticBody2D"]
@@ -35,5 +42,6 @@ position = Vector2(-3, 123)
 [node name="Area2D" type="Area2D" parent="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
-position = Vector2(0, -1.5)
+visible = false
+position = Vector2(15.5, -17)
 shape = SubResource("RectangleShape2D_wv6e5")

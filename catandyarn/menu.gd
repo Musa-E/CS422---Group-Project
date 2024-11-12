@@ -7,7 +7,7 @@ extends Control
 
 # When start button is pressed
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://Levels/TestLevels/RopeSwingTest.tscn")
+	get_tree().change_scene_to_file("res://tutorial.tscn")
 
 # When continue button is pressed
 func _on_continue_pressed() -> void:

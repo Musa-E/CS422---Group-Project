@@ -35,6 +35,9 @@ func handle_input(delta: float) -> Vector2:
 	if direction < 0: swipe_component.scale.x = -1
 	if direction > 0: swipe_component.scale.x = 1
 	
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://tutorial.tscn")
+	
 	return Vector2(direction, jump)
 	
 #func handle_state(delta: float, current: State, input: Vector2) -> State:
@@ -127,3 +130,8 @@ func _on_check_rope_touch_body_exited(body: Node2D) -> void:
 	#print(attached_rope_segments)
 	if len(attached_rope_segments) < 1:
 		can_attach = false
+		
+		
+@onready var camera = $Camera2D  # Reference to the Camera2D node
+func _ready():
+	camera.make_current()  # This sets this Camera2D as the active camera
