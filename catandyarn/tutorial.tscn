@@ -1,14 +1,35 @@
-[gd_scene load_steps=10 format=4 uid="uid://dnuse57o6la7i"]
+[gd_scene load_steps=13 format=4 uid="uid://dnuse57o6la7i"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_2gr58"]
 [ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="2_ukjsm"]
 [ext_resource type="PackedScene" uid="uid://0ufbwpfxchtd" path="res://PuzzleComponents/Platforms/platform.tscn" id="3_of13u"]
-[ext_resource type="PackedScene" uid="uid://b3uew8y5q6t12" path="res://PuzzleComponents/Platforms/moving_platform.tscn" id="4_6pmlk"]
+[ext_resource type="PackedScene" uid="uid://b3uew8y5q6t12" path="res://PuzzleComponents/Platforms/MovingPlatform.tscn" id="4_6pmlk"]
 [ext_resource type="PackedScene" uid="uid://bc8jl5t4l7koh" path="res://PuzzleComponents/Platforms/falling platform.tscn" id="5_wrdab"]
 [ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="6_fix1k"]
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="7_7kpop"]
 [ext_resource type="PackedScene" uid="uid://bfnaxdtfj588e" path="res://PuzzleComponents/Water/Water.tscn" id="8_fpnts"]
 [ext_resource type="PackedScene" uid="uid://c8e4sgux2rw6c" path="res://PuzzleComponents/Fireflies/Fireflies.tscn" id="9_nltuh"]
+
+[sub_resource type="Curve2D" id="Curve2D_ssrl6"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -192, 0, 0, 0, 0, 0, 192, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gmxm1"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -192, 0, 0, 0, 0, 0, 192, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o0hrr"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -285, -1, 0, 0, 0, 0, 328, -1)
+}
+point_count = 2
 
 [node name="Tutorial" type="Node2D"]
 
@@ -18,7 +39,7 @@ tile_map_data = PackedByteArray("AADG//z/AAAAAAAAAADG//3/AAAAAAEAAADG//7/AAAAAAI
 tile_set = ExtResource("1_2gr58")
 
 [node name="Cat" parent="." instance=ExtResource("2_ukjsm")]
-position = Vector2(457, -82)
+position = Vector2(0, -17)
 
 [node name="platform" parent="." instance=ExtResource("3_of13u")]
 position = Vector2(1800, -126)
@@ -39,22 +60,20 @@ position = Vector2(2001, -159)
 position = Vector2(2419, -258)
 
 [node name="Moving Platform" parent="." instance=ExtResource("4_6pmlk")]
-position = Vector2(3201, -464)
+position = Vector2(3664, -335)
 
-[node name="Waypoint1" parent="Moving Platform/StaticBody2D" index="3"]
-position = Vector2(-67, -20)
+[node name="Path2D" parent="Moving Platform" index="1"]
+curve = SubResource("Curve2D_ssrl6")
 
-[node name="Waypoint2" parent="Moving Platform/StaticBody2D" index="4"]
-position = Vector2(409, -19)
+[node name="PathFollow2D" parent="Moving Platform/Path2D" index="0"]
+position = Vector2(192, 0)
+progress = 384.0
 
 [node name="Moving Platform2" parent="." instance=ExtResource("4_6pmlk")]
-position = Vector2(4132, -457)
+position = Vector2(4155, -334)
 
-[node name="Waypoint1" parent="Moving Platform2/StaticBody2D" index="3"]
-position = Vector2(-378, -20)
-
-[node name="Waypoint2" parent="Moving Platform2/StaticBody2D" index="4"]
-position = Vector2(95, -22)
+[node name="Path2D" parent="Moving Platform2" index="1"]
+curve = SubResource("Curve2D_gmxm1")
 
 [node name="platform7" parent="." instance=ExtResource("3_of13u")]
 position = Vector2(5441, -395)
@@ -63,13 +82,13 @@ position = Vector2(5441, -395)
 position = Vector2(5674, -441)
 
 [node name="Moving Platform3" parent="." instance=ExtResource("4_6pmlk")]
-position = Vector2(6110, -577)
+position = Vector2(6264, -455)
 
-[node name="Waypoint1" parent="Moving Platform3/StaticBody2D" index="3"]
-position = Vector2(-168, -18)
+[node name="Path2D" parent="Moving Platform3" index="1"]
+curve = SubResource("Curve2D_o0hrr")
 
-[node name="Waypoint2" parent="Moving Platform3/StaticBody2D" index="4"]
-position = Vector2(368, -18)
+[node name="PathFollow2D" parent="Moving Platform3/Path2D" index="0"]
+position = Vector2(-285, -1)
 
 [node name="fallingPlatform" parent="." instance=ExtResource("5_wrdab")]
 position = Vector2(6867, -445)
@@ -94,7 +113,7 @@ color = Color(0.1961, 0.235055, 0.53, 0.52549)
 polygon = PackedVector2Array(-336, -231, 427, -223, 393, 766, -340, 762)
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(3128, -345)
+position = Vector2(3591, -216)
 gizmo_extents = 20.0
 
 [node name="Fireflies" parent="." instance=ExtResource("9_nltuh")]

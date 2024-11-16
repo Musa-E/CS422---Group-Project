@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3uew8y5q6t12"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/Platforms/MovingPlatform.gd" id="1_k46um"]
+[ext_resource type="Texture2D" uid="uid://cxl82e51t521q" path="res://PuzzleComponents/Platforms/airSigil.png" id="2_naego"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_f8etn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mr3"]
+size = Vector2(144, 16)
+
+[node name="MovingPlatform" type="Node2D" node_paths=PackedStringArray("path", "platform")]
+script = ExtResource("1_k46um")
+SPEED = 0.001
+path = NodePath("Path2D/PathFollow2D")
+platform = NodePath("CharacterBody2D")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+floor_stop_on_slope = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-9.53674e-07, -4.76837e-07)
+scale = Vector2(144, 16)
+texture = SubResource("CanvasTexture_f8etn")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0.745098, 1, 1, 1)
+position = Vector2(0, -5.96046e-08)
+scale = Vector2(0.0539062, 0.0193939)
+texture = ExtResource("2_naego")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_y8mr3")
+
+[node name="Path2D" type="Path2D" parent="."]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-192, 0)
+loop = false
