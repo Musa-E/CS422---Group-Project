@@ -1,15 +1,25 @@
 extends Node2D
 
-@export var skip_n_segments_for_path = 0
+## The scene for each rope segment.
 @export var rope_segment_scene: PackedScene = null
-@export var on_start_segments: int = 1
-@export var rope_segment_length: float
-@export var use_debug = true
-@export var joint_parent: Node2D
-@export var rope_path: Path2D # todo:: For some reason I need to set the offset of this inside of the editor to -722, -250, low priority bug
-@export var debug_line_draw: MeshInstance2D
+## Flag that enables or disables yarn rope growth. Set to true once the max number of segments is reached if max_segments > -1.
 @export var allow_expanding_yarn: bool = false
+## Controls how far the player can climb up the yarn rope.
+@export var skip_n_segments_for_path = 0
+## Creates n instances of rope segments when the scene is instanced.
+@export var on_start_segments: int = 1
+## Controls how often rope segments are created.
+@export var rope_segment_length: float
+## The mass of the yarn.
 @export var yarn_mass: float = 2
+## The maximum number of segments for the rope to create. Set to -1 for unlimited amount of segments.
+@export var max_segments: int = -1
+@export var joint_parent: Node2D
+@export var rope_path: Path2D
+## Flag for printing debug statements.
+@export var use_debug = true
+## Flag for printing the climb lines for the yarn ropes.
+@export var debug_line_draw: MeshInstance2D
 @onready var initial_rope_segment: SoftBody2D = $"Joint/SoftBody2D"
 @onready var initial_joint: PinJoint2D = $"Joint/PinJoint2D"
 @onready var rope_segments: Array[SoftBody2D] = []
@@ -43,8 +53,11 @@ func create_new_rope_segment() -> void:
 	rope_segments[-1].apply_impulse(rope_segments[-2].get_node("Bone-3").linear_velocity, rope_segments[-2].global_position)
 	next_pinjoint.bias = 0.9
 	
+	debug_segments += 1
+	if debug_segments >= max_segments and max_segments > -1:
+		allow_expanding_yarn = false
+		
 	if use_debug:
-		debug_segments += 1
 		print("Created new rope segment ", debug_segments)
 	
 func create_new_rope_segment_front() -> void:
@@ -67,8 +80,7 @@ func create_new_rope_segment_front() -> void:
 	rope_segments[0].apply_impulse(rope_segments[1].get_node("Bone-0").linear_velocity, rope_segments[1].global_position)
 	next_pinjoint.bias = 0.9
 	
-	if use_debug:
-		debug_segments += 1
+	debug_segments += 1
 	
 func update_rope_path() -> void:
 	# get each bone in the softbody and update the points in the existing path
