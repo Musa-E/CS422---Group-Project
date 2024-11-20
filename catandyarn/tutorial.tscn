@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dnuse57o6la7i"]
+[gd_scene load_steps=15 format=4 uid="uid://dnuse57o6la7i"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_2gr58"]
 [ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="2_ukjsm"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="7_7kpop"]
 [ext_resource type="PackedScene" uid="uid://bfnaxdtfj588e" path="res://PuzzleComponents/Water/Water.tscn" id="8_fpnts"]
 [ext_resource type="PackedScene" uid="uid://c8e4sgux2rw6c" path="res://PuzzleComponents/Fireflies/Fireflies.tscn" id="9_nltuh"]
+[ext_resource type="PackedScene" uid="uid://c4d77pgu3wpis" path="res://PuzzleComponents/CameraManipulators/CameraFocus.tscn" id="10_xsqx8"]
 
 [sub_resource type="Curve2D" id="Curve2D_ssrl6"]
 resource_local_to_scene = true
@@ -31,6 +32,10 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8p22"]
+resource_local_to_scene = true
+size = Vector2(1625, 878)
+
 [node name="Tutorial" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -39,7 +44,13 @@ tile_map_data = PackedByteArray("AADG//z/AAAAAAAAAADG//3/AAAAAAEAAADG//7/AAAAAAI
 tile_set = ExtResource("1_2gr58")
 
 [node name="Cat" parent="." instance=ExtResource("2_ukjsm")]
-position = Vector2(0, -17)
+position = Vector2(5, -27)
+SPEED = 300.0
+ACCELERATION = 50.0
+CLIMB_SPEED = 4.0
+JUMP_VELOCITY = -400.0
+IMPULSE_MULTIPLIER = 10.0
+cam_follow_stack = []
 
 [node name="platform" parent="." instance=ExtResource("3_of13u")]
 position = Vector2(1800, -126)
@@ -119,7 +130,19 @@ gizmo_extents = 20.0
 [node name="Fireflies" parent="." instance=ExtResource("9_nltuh")]
 position = Vector2(-1392, -25)
 
+[node name="CameraFocus" parent="." instance=ExtResource("10_xsqx8")]
+position = Vector2(3851, -381)
+
+[node name="Area2D" parent="CameraFocus" index="0"]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" parent="CameraFocus/Area2D" index="0"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_q8p22")
+metadata/_edit_lock_ = true
+
 [editable path="Moving Platform"]
 [editable path="Moving Platform2"]
 [editable path="Moving Platform3"]
 [editable path="Water"]
+[editable path="CameraFocus"]

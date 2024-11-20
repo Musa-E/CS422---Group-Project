@@ -18,6 +18,7 @@ platform = NodePath("CharacterBody2D")
 floor_stop_on_slope = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0.517647, 0.380392, 0.113725, 1)
 position = Vector2(-9.53674e-07, -4.76837e-07)
 scale = Vector2(144, 16)
 texture = SubResource("CanvasTexture_f8etn")
@@ -25,10 +26,11 @@ texture = SubResource("CanvasTexture_f8etn")
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 modulate = Color(0.745098, 1, 1, 1)
 position = Vector2(0, -5.96046e-08)
-scale = Vector2(0.0539062, 0.0193939)
+scale = Vector2(0.025, 0.0193939)
 texture = ExtResource("2_naego")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+visible = false
 shape = SubResource("RectangleShape2D_y8mr3")
 
 [node name="Path2D" type="Path2D" parent="."]
