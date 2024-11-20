@@ -52,8 +52,8 @@ func update_camera_follow_point(delta: float, input: Vector2) -> Vector2:
 		var y = character_body.global_position.y - (CAMERA_FOLLOW_OFFSET_Y)
 		camera_follow_point.global_position = camera_follow_point.global_position.lerp(Vector2(x, y), 0.3)
 		return Vector2(x, y)
-	camera_follow_point.global_position = camera_follow_point.global_position.lerp(cam_follow_stack[-1], 0.3)
-	return cam_follow_stack[-1]
+	camera_follow_point.global_position = camera_follow_point.global_position.lerp(cam_follow_stack[-1].global_position, 0.3)
+	return cam_follow_stack[-1].global_position
 	
 func normal_movement(delta: float, input: Vector2) -> void:
 	# let the player interact with the ground.
@@ -149,7 +149,27 @@ func _on_check_rope_touch_body_exited(body: Node2D) -> void:
 		can_attach = false
 		
 func _on_check_cam_follow_area_entered(area: Area2D) -> void:
-	cam_follow_stack.append(area.global_position)
-
+	cam_follow_stack.append(area)
+	# adjust the camera zoom
+	var collider: CollisionShape2D = area.get_child(0) # we assume has 1 child that's a collision shape???
+	var shape: RectangleShape2D = collider.shape
+	var zoom_level_x = min(1,  get_viewport().size.x / shape.size.x)
+	var zoom_level_y = min(1, get_viewport().size.y / shape.size.y)
+	var zoom = min(zoom_level_x, zoom_level_y)
+	var tween = create_tween()
+	tween.tween_property(camera, "zoom", Vector2(zoom, zoom), 0.5)
+	tween.play()
+	
 func _on_check_cam_follow_area_exited(area: Area2D) -> void:
 	cam_follow_stack.resize(cam_follow_stack.size() - 1)
+	# adjust the zoom size
+	var zoom = 1
+	if cam_follow_stack.size() > 0:
+		var collider: CollisionShape2D = cam_follow_stack[-1].get_child(0) # we assume has 1 child that's a collision shape???
+		var shape: RectangleShape2D = collider.shape
+		var zoom_level_x = min(1,  get_viewport().size.x / shape.size.x)
+		var zoom_level_y = min(1, get_viewport().size.y / shape.size.y)
+		zoom = min(zoom_level_x, zoom_level_y)
+	var tween = create_tween()
+	tween.tween_property(camera, "zoom", Vector2(zoom, zoom), 0.5)
+	tween.play()

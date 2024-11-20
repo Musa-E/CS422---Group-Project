@@ -32,9 +32,9 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8p22"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ir3of"]
 resource_local_to_scene = true
-size = Vector2(1625, 878)
+size = Vector2(2145, 1051)
 
 [node name="Tutorial" type="Node2D"]
 
@@ -45,12 +45,6 @@ tile_set = ExtResource("1_2gr58")
 
 [node name="Cat" parent="." instance=ExtResource("2_ukjsm")]
 position = Vector2(5, -27)
-SPEED = 300.0
-ACCELERATION = 50.0
-CLIMB_SPEED = 4.0
-JUMP_VELOCITY = -400.0
-IMPULSE_MULTIPLIER = 10.0
-cam_follow_stack = []
 
 [node name="platform" parent="." instance=ExtResource("3_of13u")]
 position = Vector2(1800, -126)
@@ -133,13 +127,9 @@ position = Vector2(-1392, -25)
 [node name="CameraFocus" parent="." instance=ExtResource("10_xsqx8")]
 position = Vector2(3851, -381)
 
-[node name="Area2D" parent="CameraFocus" index="0"]
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" parent="CameraFocus/Area2D" index="0"]
-position = Vector2(-0.5, -1)
-shape = SubResource("RectangleShape2D_q8p22")
-metadata/_edit_lock_ = true
+[node name="CollisionShape2D" parent="CameraFocus" index="0"]
+position = Vector2(117.5, 39.5)
+shape = SubResource("RectangleShape2D_ir3of")
 
 [editable path="Moving Platform"]
 [editable path="Moving Platform2"]
