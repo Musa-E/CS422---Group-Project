@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -78,6 +79,7 @@ swipe={
 2d_physics/layer_4="pin"
 2d_physics/layer_5="player"
 2d_physics/layer_6="player_rope_check"
+2d_physics/layer_7="camera_follow_area"
 
 [physics]
 
