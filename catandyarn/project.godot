@@ -80,6 +80,7 @@ swipe={
 2d_physics/layer_5="player"
 2d_physics/layer_6="player_rope_check"
 2d_physics/layer_7="camera_follow_area"
+2d_physics/layer_8="swipe"
 
 [physics]
 

@@ -10,6 +10,7 @@ extends Node2D
 @export var IMPULSE_MULTIPLIER = 10.0
 @export var CAMERA_FOLLOW_OFFSET_X = 125.0
 @export var CAMERA_FOLLOW_OFFSET_Y = 75.0
+@export var SWIPE_FORCE = 500.0
 
 @export var swipe_component: Area2D
 @export var animations: AnimationPlayer
@@ -17,6 +18,9 @@ extends Node2D
 @export var character_body: CharacterBody2D
 @export var camera_follow_point: Node2D
 @export var cam_follow_stack: Array = []
+@export var can_swipe: bool = true
+
+@onready var swipe_starting_pos = swipe_component.position
 
 enum State {
 	IDLE,
@@ -37,8 +41,8 @@ func handle_input(delta: float) -> Vector2:
 	var jump := 1 if Input.is_action_just_pressed("ui_accept") else 0
 	
 	# update the direction of the swipe
-	if direction < 0: swipe_component.scale.x = -1
-	if direction > 0: swipe_component.scale.x = 1
+	if direction < 0: swipe_component.position.x = swipe_starting_pos.x * -1
+	if direction > 0: swipe_component.position.x = swipe_starting_pos.x * 1
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://tutorial.tscn")
@@ -113,7 +117,7 @@ func attached_movement(delta: float, input: Vector2) -> void:
 # todo:: Add swipe ability
 func swipe(delta: float, input: Vector2) -> void:
 	# play animation that activates a hitbox
-	pass
+	animations.play("swipe")
 	
 func _process(delta: float) -> void:
 	var input := handle_input(delta)
@@ -127,7 +131,7 @@ func _physics_process(delta: float) -> void:
 		attached_movement(delta, input)
 	else:
 		normal_movement(delta, input)
-		if Input.is_action_just_pressed("swipe"):
+		if Input.is_action_just_pressed("swipe") and can_swipe:
 			swipe(delta, input)
 			
 
@@ -173,3 +177,10 @@ func _on_check_cam_follow_area_exited(area: Area2D) -> void:
 	var tween = create_tween()
 	tween.tween_property(camera, "zoom", Vector2(zoom, zoom), 0.5)
 	tween.play()
+
+func _on_swipe_body_entered(body: Node2D) -> void:
+	if body is RigidBody2D:
+		var yarn: RigidBody2D = body
+		var force = (yarn.global_position - swipe_component.global_position) * SWIPE_FORCE
+		yarn.apply_central_impulse(force)
+		
