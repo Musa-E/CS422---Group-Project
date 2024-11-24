@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3uew8y5q6t12"]
+[gd_scene load_steps=5 format=3 uid="uid://bhl5ipw1sbdw"]
 
 [ext_resource type="Script" path="res://PuzzleComponents/Platforms/MovingPlatform.gd" id="1_k46um"]
 [ext_resource type="Texture2D" uid="uid://cxl82e51t521q" path="res://PuzzleComponents/Platforms/airSigil.png" id="2_naego"]
