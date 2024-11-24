@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://tpbw4ldbls7l"]
+[gd_scene load_steps=12 format=3 uid="uid://tpbw4ldbls7l"]
 
 [ext_resource type="Script" path="res://Player/Cat.gd" id="1_so0pf"]
 [ext_resource type="Script" path="res://Player/Swipe.gd" id="2_g1xiq"]
@@ -10,45 +10,181 @@ size = Vector2(48, 40)
 size = Vector2(80, 72)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qy6en"]
-size = Vector2(24, 24)
+size = Vector2(48, 24)
 
-[node name="Cat" type="CharacterBody2D" node_paths=PackedStringArray("swipe_component")]
-collision_layer = 16
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvf38"]
+size = Vector2(128, 120)
+
+[sub_resource type="Gradient" id="Gradient_76ep7"]
+offsets = PackedFloat32Array(0.0987203, 0.162706, 0.301645)
+colors = PackedColorArray(0.486275, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ivux"]
+gradient = SubResource("Gradient_76ep7")
+fill = 1
+fill_from = Vector2(0.508547, 0.487179)
+
+[sub_resource type="Animation" id="Animation_gi148"]
+resource_name = "swipe"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cat/Swipe:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:can_swipe")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cat/Swipe/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_dh2rw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cat/Swipe:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:can_swipe")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cat/Swipe/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ph8h"]
+_data = {
+"RESET": SubResource("Animation_dh2rw"),
+"swipe": SubResource("Animation_gi148")
+}
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("swipe_component", "animations", "camera", "character_body", "camera_follow_point")]
 script = ExtResource("1_so0pf")
-swipe_component = NodePath("Swipe")
+SWIPE_FORCE = 250.0
+swipe_component = NodePath("Cat/Swipe")
+animations = NodePath("AnimationPlayer")
+camera = NodePath("Camera2D")
+character_body = NodePath("Cat")
+camera_follow_point = NodePath("Marker2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Cat" type="CharacterBody2D" parent="."]
+collision_layer = 16
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Cat"]
+
+[node name="Polygon2D" type="Polygon2D" parent="Cat"]
 scale = Vector2(1, 1.66667)
 color = Color(0.121569, 1, 0.384314, 1)
 polygon = PackedVector2Array(-24, -24, 24, -24, 24, -9.6, 24, 0, -16, 0, -24, 0, -24, -14.4)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat"]
 position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_ye0js")
 
-[node name="CheckRopeTouch" type="Area2D" parent="."]
+[node name="CheckRopeTouch" type="Area2D" parent="Cat"]
 collision_layer = 32
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckRopeTouch"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/CheckRopeTouch"]
 position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_ij8xi")
 
-[node name="Swipe" type="Area2D" parent="."]
+[node name="Swipe" type="Area2D" parent="Cat"]
 visible = false
-collision_layer = 16
+position = Vector2(51, -13)
+collision_layer = 128
 collision_mask = 2
 script = ExtResource("2_g1xiq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Swipe"]
-position = Vector2(44, -20)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/Swipe"]
 shape = SubResource("RectangleShape2D_qy6en")
+disabled = true
+metadata/_edit_lock_ = true
 
-[node name="Polygon2D" type="Polygon2D" parent="Swipe"]
+[node name="Polygon2D" type="Polygon2D" parent="Cat/Swipe"]
 color = Color(0.792157, 0.211765, 0.101961, 1)
-polygon = PackedVector2Array(32, -32, 56, -32, 56, -8, 32, -8)
+polygon = PackedVector2Array(-24, -12, 24, -12, 24, 12, -24, 12)
+metadata/_edit_lock_ = true
 
-[connection signal="body_entered" from="CheckRopeTouch" to="." method="_on_check_rope_touch_body_entered"]
-[connection signal="body_exited" from="CheckRopeTouch" to="." method="_on_check_rope_touch_body_exited"]
+[node name="CheckCamFollow" type="Area2D" parent="Cat"]
+collision_layer = 16
+collision_mask = 64
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/CheckCamFollow"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_yvf38")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Marker2D" type="Sprite2D" parent="."]
+position = Vector2(152, -192)
+texture = SubResource("GradientTexture2D_7ivux")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7ph8h")
+}
+
+[connection signal="body_entered" from="Cat/CheckRopeTouch" to="." method="_on_check_rope_touch_body_entered"]
+[connection signal="body_exited" from="Cat/CheckRopeTouch" to="." method="_on_check_rope_touch_body_exited"]
+[connection signal="body_entered" from="Cat/Swipe" to="." method="_on_swipe_body_entered"]
+[connection signal="area_entered" from="Cat/CheckCamFollow" to="." method="_on_check_cam_follow_area_entered"]
+[connection signal="area_exited" from="Cat/CheckCamFollow" to="." method="_on_check_cam_follow_area_exited"]
