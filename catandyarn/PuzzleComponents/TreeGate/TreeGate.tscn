@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://PuzzleComponents/TreeGate/TreeGate.gd" id="1_rqeq5"]
 
 [node name="TreeGate" type="Node2D"]
+scale = Vector2(4, 4)
 script = ExtResource("1_rqeq5")
 glow_duration = 0.5
 

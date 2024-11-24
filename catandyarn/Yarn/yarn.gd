@@ -51,7 +51,7 @@ func create_new_rope_segment() -> void:
 	next_pinjoint.node_a = rope_segments[-2].get_node("Bone-3").get_path() # guaranteed to exist
 	next_pinjoint.node_b = rope_segments[-1].get_node("Bone-0").get_path()
 	rope_segments[-1].apply_impulse(rope_segments[-2].get_node("Bone-3").linear_velocity, rope_segments[-2].global_position)
-	next_pinjoint.bias = 0.9
+	next_pinjoint.bias = 0.5
 	
 	debug_segments += 1
 	if debug_segments >= max_segments and max_segments > -1:
@@ -102,7 +102,7 @@ func update_rope_path() -> void:
 				curve.add_point(gpos)
 
 	# draw the line in game if debug is active
-	if use_debug:
+	if use_debug and curve.get_baked_length() > 0:
 		var geom: ImmediateMesh = debug_line_draw.mesh
 		geom.clear_surfaces()
 		geom.surface_begin(Mesh.PRIMITIVE_LINES)
