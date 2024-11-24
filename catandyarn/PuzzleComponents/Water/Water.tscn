@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfnaxdtfj588e"]
+[gd_scene load_steps=4 format=3 uid="uid://bfnaxdtfj588e"]
 
 [ext_resource type="Script" path="res://PuzzleComponents/Water/Water.gd" id="1_y11gk"]
+[ext_resource type="AudioStream" uid="uid://bsn5w5x6h8hdr" path="res://PuzzleComponents/Water/death.wav" id="2_fig1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8sl4"]
-size = Vector2(728, 956)
+size = Vector2(2887, 981)
 
-[node name="Water" type="Node2D" node_paths=PackedStringArray("area")]
+[node name="Water" type="Node2D" node_paths=PackedStringArray("area", "audio_player")]
 script = ExtResource("1_y11gk")
 area = NodePath("Area2D")
+audio_player = NodePath("AudioStreamPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 16
@@ -16,5 +18,9 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_p8sl4")
 
 [node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_fig1a")
+volume_db = -15.386
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

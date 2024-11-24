@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlfah35nmxsh5"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/ResetPoint/ResetPoint.gd" id="1_jc8ia"]
+
+[node name="ResetPoint" type="Node2D"]
+script = ExtResource("1_jc8ia")
+
+[node name="Area2D" type="Area2D" parent="."]
