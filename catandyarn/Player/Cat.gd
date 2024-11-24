@@ -79,7 +79,8 @@ func normal_movement(delta: float, input: Vector2) -> void:
 	if input.y != 0 and character_body.is_on_floor():
 		character_body.velocity.y = JUMP_VELOCITY
 
-	character_body.velocity.x = input.x * SPEED if input.x else move_toward(character_body.velocity.x, 0, ACCELERATION)
+	var accel = 1 if abs(character_body.velocity.x) > abs(input.x * SPEED) else ACCELERATION
+	character_body.velocity.x = move_toward(character_body.velocity.x, input.x * SPEED, accel) if input.x else move_toward(character_body.velocity.x, 0, ACCELERATION)
 	current_state = State.MOVING if character_body.velocity.x != 0 else State.IDLE
 	character_body.move_and_slide()
 	
@@ -109,7 +110,8 @@ func attached_movement(delta: float, input: Vector2) -> void:
 	if current_state != State.ATTACHED:
 		path_follow.progress = closest_offset
 		
-	path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
+	if direction != 0:
+		path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
 	# update the player position to be the global position of the pathfollow2D after all transformations
 	character_body.global_position = character_body.global_position.lerp(path_follow.global_position, 0.5)
 	current_state = State.ATTACHED
