@@ -25,6 +25,7 @@ func _on_continue_mouse_entered() -> void:
 # When continue button is pressed
 func _on_continue_pressed() -> void:
 	$buttonPressed.play()
+	get_tree().change_scene_to_file("res://Levels/levels.tscn")
 
 
 func _on_settings_mouse_entered() -> void:

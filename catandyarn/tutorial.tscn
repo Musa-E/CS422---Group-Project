@@ -1,7 +1,10 @@
-[gd_scene load_steps=18 format=4 uid="uid://dnuse57o6la7i"]
+[gd_scene load_steps=21 format=4 uid="uid://dnuse57o6la7i"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_2gr58"]
+[ext_resource type="Texture2D" uid="uid://f8cfahns6npj" path="res://assets/env/oak_woods_v1.0/background/background_layer_1.png" id="1_huxry"]
+[ext_resource type="Texture2D" uid="uid://c04qfmrr121ab" path="res://assets/env/oak_woods_v1.0/background/background_layer_2.png" id="2_3ns3d"]
 [ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="2_ukjsm"]
+[ext_resource type="Texture2D" uid="uid://d07yahl78n30v" path="res://assets/env/oak_woods_v1.0/background/background_layer_3.png" id="3_a3e2i"]
 [ext_resource type="PackedScene" uid="uid://0ufbwpfxchtd" path="res://PuzzleComponents/Platforms/platform.tscn" id="3_of13u"]
 [ext_resource type="PackedScene" uid="uid://bhl5ipw1sbdw" path="res://PuzzleComponents/Platforms/MovingPlatform.tscn" id="4_6pmlk"]
 [ext_resource type="PackedScene" uid="uid://bc8jl5t4l7koh" path="res://PuzzleComponents/Platforms/falling platform.tscn" id="5_wrdab"]
@@ -36,12 +39,48 @@ point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ir3of"]
 resource_local_to_scene = true
-size = Vector2(2145, 1051)
+size = Vector2(1817, 1051)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q7ay"]
 size = Vector2(6426.77, 574.405)
 
 [node name="Tutorial" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(110, -424)
+scale = Vector2(5, 5)
+texture = ExtResource("1_huxry")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+position = Vector2(110, -424)
+scale = Vector2(5, 5)
+texture = ExtResource("2_3ns3d")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
+position = Vector2(110, -424)
+scale = Vector2(5, 5)
+texture = ExtResource("3_a3e2i")
+
+[node name="Node2D2" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D2"]
+position = Vector2(1702, -424)
+scale = Vector2(5, 5)
+texture = ExtResource("1_huxry")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D2"]
+position = Vector2(1702, -424)
+scale = Vector2(5, 5)
+texture = ExtResource("2_3ns3d")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D2"]
+position = Vector2(1700, -424)
+scale = Vector2(5, 5)
+texture = ExtResource("3_a3e2i")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(9, 48)
@@ -134,7 +173,7 @@ position = Vector2(-1392, -25)
 position = Vector2(3851, -381)
 
 [node name="CollisionShape2D" parent="CameraFocus" index="0"]
-position = Vector2(117.5, 39.5)
+position = Vector2(-46.5, 39.5)
 shape = SubResource("RectangleShape2D_ir3of")
 
 [node name="Area2D" type="Area2D" parent="."]
