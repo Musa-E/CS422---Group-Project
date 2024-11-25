@@ -6,7 +6,10 @@
 extends AudioStreamPlayer
 
 const level_music = preload("res://assets/audio/music/catAndYarn-TitleOST3-v3.mp3")
+<<<<<<< Updated upstream
+=======
 const tutorial_music = preload("res://assets/audio/music/spaceTheme-v1.mp3")
+>>>>>>> Stashed changes
 
 func _play_music(music: AudioStream, volume = 0.0):
 	if stream == music:
@@ -18,10 +21,13 @@ func _play_music(music: AudioStream, volume = 0.0):
 	
 func play_music_level():
 	_play_music(level_music)
+<<<<<<< Updated upstream
+=======
 
 func play_tutorial_level():
 	_play_music(tutorial_music)
 
+>>>>>>> Stashed changes
 	
 func play_FX(stream: AudioStream, volume = 0.0):
 	var fx_player = AudioStreamPlayer.new()
