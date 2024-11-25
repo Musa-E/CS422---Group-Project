@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://b41asat3n7wb"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/TreeGate/TreeGate.gd" id="1_rqeq5"]
+
+[node name="TreeGate" type="Node2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_rqeq5")
+glow_duration = 0.5
+
+[node name="Door" type="Polygon2D" parent="."]
+color = Color(0.28, 0.215693, 0.1316, 1)
+polygon = PackedVector2Array(-64, 0, -62, -13, -57, -26, -48, -39, -37, -51, -24, -59, -12, -63, 0, -64, 12, -63, 27, -58, 40, -50, 52, -37, 59, -26, 63, -11, 64, 0, 64, 64, -64, 64)
+
+[node name="Water" type="Polygon2D" parent="."]
+position = Vector2(8, 0)
+color = Color(0.1575, 0.231292, 0.35, 1)
+polygon = PackedVector2Array(-56, 56, -24, 56, -24, 24, -56, 24)
+
+[node name="Earth" type="Polygon2D" parent="."]
+position = Vector2(72, 0)
+color = Color(0.43, 0.301143, 0.1806, 1)
+polygon = PackedVector2Array(-56, 56, -24, 56, -24, 24, -56, 24)
+
+[node name="Fire" type="Polygon2D" parent="."]
+position = Vector2(72, -48)
+color = Color(0.48, 0.1824, 0.1824, 1)
+polygon = PackedVector2Array(-56, 56, -24, 56, -24, 24, -56, 24)
+
+[node name="Wind" type="Polygon2D" parent="."]
+position = Vector2(8, -48)
+color = Color(0.3139, 0.43, 0.33325, 1)
+polygon = PackedVector2Array(-56, 56, -24, 56, -24, 24, -56, 24)

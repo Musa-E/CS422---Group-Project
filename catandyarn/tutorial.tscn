@@ -1,15 +1,17 @@
-[gd_scene load_steps=15 format=4 uid="uid://dnuse57o6la7i"]
+[gd_scene load_steps=18 format=4 uid="uid://dnuse57o6la7i"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_2gr58"]
 [ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="2_ukjsm"]
 [ext_resource type="PackedScene" uid="uid://0ufbwpfxchtd" path="res://PuzzleComponents/Platforms/platform.tscn" id="3_of13u"]
-[ext_resource type="PackedScene" uid="uid://b3uew8y5q6t12" path="res://PuzzleComponents/Platforms/MovingPlatform.tscn" id="4_6pmlk"]
+[ext_resource type="PackedScene" uid="uid://bhl5ipw1sbdw" path="res://PuzzleComponents/Platforms/MovingPlatform.tscn" id="4_6pmlk"]
 [ext_resource type="PackedScene" uid="uid://bc8jl5t4l7koh" path="res://PuzzleComponents/Platforms/falling platform.tscn" id="5_wrdab"]
 [ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="6_fix1k"]
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="7_7kpop"]
 [ext_resource type="PackedScene" uid="uid://bfnaxdtfj588e" path="res://PuzzleComponents/Water/Water.tscn" id="8_fpnts"]
 [ext_resource type="PackedScene" uid="uid://c8e4sgux2rw6c" path="res://PuzzleComponents/Fireflies/Fireflies.tscn" id="9_nltuh"]
 [ext_resource type="PackedScene" uid="uid://c4d77pgu3wpis" path="res://PuzzleComponents/CameraManipulators/CameraFocus.tscn" id="10_xsqx8"]
+[ext_resource type="Script" path="res://Levels/SceneChange.gd" id="11_wamfo"]
+[ext_resource type="Texture2D" uid="uid://b4xbv8uy15ym1" path="res://assets/backgrounds/Controls.png" id="12_mwnfa"]
 
 [sub_resource type="Curve2D" id="Curve2D_ssrl6"]
 resource_local_to_scene = true
@@ -36,6 +38,9 @@ point_count = 2
 resource_local_to_scene = true
 size = Vector2(2145, 1051)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5q7ay"]
+size = Vector2(6426.77, 574.405)
+
 [node name="Tutorial" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -45,6 +50,7 @@ tile_set = ExtResource("1_2gr58")
 
 [node name="Cat" parent="." instance=ExtResource("2_ukjsm")]
 position = Vector2(5, -27)
+SWIPE_FORCE = 500.0
 
 [node name="platform" parent="." instance=ExtResource("3_of13u")]
 position = Vector2(1800, -126)
@@ -114,7 +120,7 @@ reset_point = NodePath("../Marker2D")
 position = Vector2(30, 272.5)
 
 [node name="Polygon2D" parent="Water/Area2D" index="1"]
-color = Color(0.1961, 0.235055, 0.53, 0.52549)
+color = Color(0.769691, 0.831855, 1, 0.52549)
 polygon = PackedVector2Array(-336, -231, 427, -223, 393, 766, -340, 762)
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -130,6 +136,27 @@ position = Vector2(3851, -381)
 [node name="CollisionShape2D" parent="CameraFocus" index="0"]
 position = Vector2(117.5, 39.5)
 shape = SubResource("RectangleShape2D_ir3of")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(9935.47, -595.405)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("11_wamfo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2503.15, 741.405)
+shape = SubResource("RectangleShape2D_5q7ay")
+
+[node name="YarnRoot" parent="Area2D" instance=ExtResource("7_7kpop")]
+position = Vector2(-1206.47, -22.5955)
+allow_expanding_yarn = true
+max_segments = 30
+
+[node name="Controls" type="Sprite2D" parent="."]
+position = Vector2(1, -356)
+texture = ExtResource("12_mwnfa")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="change_scene"]
 
 [editable path="Moving Platform"]
 [editable path="Moving Platform2"]

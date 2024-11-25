@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3uew8y5q6t12"]
+[gd_scene load_steps=5 format=3 uid="uid://bhl5ipw1sbdw"]
 
 [ext_resource type="Script" path="res://PuzzleComponents/Platforms/MovingPlatform.gd" id="1_k46um"]
 [ext_resource type="Texture2D" uid="uid://cxl82e51t521q" path="res://PuzzleComponents/Platforms/airSigil.png" id="2_naego"]
@@ -10,7 +10,7 @@ size = Vector2(144, 16)
 
 [node name="MovingPlatform" type="Node2D" node_paths=PackedStringArray("path", "platform")]
 script = ExtResource("1_k46um")
-SPEED = 0.001
+SPEED = 1.0
 path = NodePath("Path2D/PathFollow2D")
 platform = NodePath("CharacterBody2D")
 

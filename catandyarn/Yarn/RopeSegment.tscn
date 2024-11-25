@@ -46,7 +46,8 @@ resource_local_to_scene = true
 size = Vector2(4, 4)
 
 [node name="SoftBody2D" type="Polygon2D"]
-position = Vector2(0, -1)
+position = Vector2(0, -2)
+scale = Vector2(1, 2)
 color = Color(0.647059, 0.176471, 0.168627, 1)
 texture = ExtResource("1_a4hv1")
 skeleton = NodePath("Skeleton2D")
