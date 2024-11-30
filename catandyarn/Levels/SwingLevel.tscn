@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=4 uid="uid://52ermhs3wp4t"]
+[gd_scene load_steps=5 format=4 uid="uid://52ermhs3wp4t"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_bo51o"]
 [ext_resource type="PackedScene" uid="uid://bfnaxdtfj588e" path="res://PuzzleComponents/Water/Water.tscn" id="3_gqqkl"]
+[ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="4_na8ot"]
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="5_plw8w"]
 
 [node name="SwingLevel" type="Node2D"]
@@ -23,36 +24,38 @@ polygon = PackedVector2Array(-500, -498, 2387, -500, 2390, 883, -500, 881)
 
 [node name="YarnRoot" parent="." instance=ExtResource("5_plw8w")]
 position = Vector2(2614, -390)
-skip_n_segments_for_path = 4
-on_start_segments = 18
+skip_n_segments_for_path = 1
+on_start_segments = 7
 yarn_mass = 0.3
-use_debug = false
 
 [node name="Reset" type="Node2D" parent="."]
 position = Vector2(2925, -5)
 
 [node name="YarnRoot2" parent="." instance=ExtResource("5_plw8w")]
 position = Vector2(2028, -392)
-skip_n_segments_for_path = 4
-on_start_segments = 18
+skip_n_segments_for_path = 1
+on_start_segments = 7
 use_debug = false
 
 [node name="YarnRoot3" parent="." instance=ExtResource("5_plw8w")]
 position = Vector2(1463, -397)
-skip_n_segments_for_path = 4
-on_start_segments = 18
+skip_n_segments_for_path = 1
+on_start_segments = 7
 use_debug = false
 
 [node name="YarnRoot4" parent="." instance=ExtResource("5_plw8w")]
 position = Vector2(903, -405)
-skip_n_segments_for_path = 4
-on_start_segments = 18
+skip_n_segments_for_path = 1
+on_start_segments = 7
 use_debug = false
 
 [node name="YarnRoot5" parent="." instance=ExtResource("5_plw8w")]
 position = Vector2(425, -391)
-skip_n_segments_for_path = 4
-on_start_segments = 18
+skip_n_segments_for_path = 1
+on_start_segments = 7
 use_debug = false
+
+[node name="Player" parent="." instance=ExtResource("4_na8ot")]
+position = Vector2(2906.89, -25.512)
 
 [editable path="Water"]

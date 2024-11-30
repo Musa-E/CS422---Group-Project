@@ -189,7 +189,6 @@ shape = SubResource("RectangleShape2D_5q7ay")
 [node name="YarnRoot" parent="Area2D" instance=ExtResource("7_7kpop")]
 position = Vector2(-1206.47, -22.5955)
 allow_expanding_yarn = true
-max_segments = 30
 
 [node name="Controls" type="Sprite2D" parent="."]
 position = Vector2(1, -356)
