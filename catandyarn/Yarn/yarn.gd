@@ -29,7 +29,7 @@ extends Node2D
 var last_rotation = 0
 
 func _ready() -> void:
-	# set initial rope segment
+	 #set initial rope segment
 	rope_segments.append(initial_rope_segment)
 	initial_joint.node_a = yarn_body_component.get_path() # we are on the yarn
 	initial_joint.node_b = initial_rope_segment.get_node("Bone-0").get_path()
@@ -43,8 +43,9 @@ func create_new_rope_segment() -> void:
 	# define the new box
 	var rope_segment := rope_segment_scene.instantiate()
 	var next_pinjoint := PinJoint2D.new()
-	joint_parent.add_child(next_pinjoint)
-	joint_parent.add_child(rope_segment)
+	joint_parent.call_deferred("add_child", next_pinjoint)
+	joint_parent.call_deferred("add_child", rope_segment)
+	await rope_segment.ready
 	rope_segments.append(rope_segment)
 	next_pinjoint.global_position = rope_segments[-2].get_node("Bone-3").global_position
 	rope_segment.global_position = next_pinjoint.global_position
@@ -61,7 +62,7 @@ func create_new_rope_segment() -> void:
 		print("Created new rope segment ", debug_segments)
 	
 func create_new_rope_segment_front() -> void:
-	# define the new box
+	 #define the new box
 	var rope_segment := rope_segment_scene.instantiate()
 	rope_segment.show_shapes = true
 	var next_pinjoint := PinJoint2D.new()
@@ -78,7 +79,7 @@ func create_new_rope_segment_front() -> void:
 	next_pinjoint.node_a = rope_segments[0].get_node("Bone-3").get_path() # guaranteed to exist
 	next_pinjoint.node_b = rope_segments[1].get_node("Bone-0").get_path()
 	rope_segments[0].apply_impulse(rope_segments[1].get_node("Bone-0").linear_velocity, rope_segments[1].global_position)
-	next_pinjoint.bias = 0.9
+	next_pinjoint.bias = 0.0
 	
 	debug_segments += 1
 	

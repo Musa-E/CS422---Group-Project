@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhn4mpdvbombp"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/Door/Door.gd" id="1_gbbih"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3rop"]
+size = Vector2(16, 256)
+
+[node name="Door" type="Node2D" node_paths=PackedStringArray("body", "collider")]
+script = ExtResource("1_gbbih")
+body = NodePath("StaticBody2D")
+collider = NodePath("StaticBody2D/CollisionShape2D")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_e3rop")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.495517, 0.247, 0.65, 1)
+polygon = PackedVector2Array(-8, -128, 8, -128, 8, 128, -8, 128)

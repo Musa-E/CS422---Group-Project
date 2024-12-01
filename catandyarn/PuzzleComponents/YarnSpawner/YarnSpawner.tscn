@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgvkvwqj880gg"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/YarnSpawner/YarnSpawner.gd" id="1_m73vs"]
+[ext_resource type="PackedScene" uid="uid://c1gsgm5wnpjcw" path="res://PuzzleComponents/Button/Button.tscn" id="2_2vu5i"]
+
+[node name="Spawner" type="Node2D" node_paths=PackedStringArray("spawn_position")]
+script = ExtResource("1_m73vs")
+spawn_position = NodePath("Spawn")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-40, 0, 40, 0, 40, 64, 0, 40, -40, 64)
+
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(0, 88)
+
+[node name="Button" parent="." instance=ExtResource("2_2vu5i")]
+
+[connection signal="body_entered" from="Button/Area2D" to="." method="activate"]
+
+[editable path="Button"]

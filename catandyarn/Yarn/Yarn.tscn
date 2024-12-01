@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bax30g2jqvhsw"]
 
-[ext_resource type="Script" path="res://Yarn/yarn.gd" id="1_2qhvn"]
+[ext_resource type="Script" path="res://Yarn/Yarn.gd" id="1_6tncc"]
 [ext_resource type="PhysicsMaterial" uid="uid://br8tjtpp4pch2" path="res://Yarn/YarnPhysicsMaterialBase.tres" id="1_22b5o"]
 [ext_resource type="PackedScene" uid="uid://6uvprn8e6ydi" path="res://Yarn/RopeSegment.tscn" id="3_fcxrx"]
 
@@ -24,10 +24,11 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 
 [node name="YarnRoot" type="Node2D" node_paths=PackedStringArray("joint_parent", "rope_path", "debug_line_draw")]
-script = ExtResource("1_2qhvn")
+script = ExtResource("1_6tncc")
 rope_segment_scene = ExtResource("3_fcxrx")
 skip_n_segments_for_path = 2
 rope_segment_length = 8.0
+yarn_mass = 1.0
 joint_parent = NodePath("Joint")
 rope_path = NodePath("Joint/Path2D")
 debug_line_draw = NodePath("Joint/Path2D/DebugLineDraw")
