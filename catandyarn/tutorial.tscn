@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://dnuse57o6la7i"]
+[gd_scene load_steps=22 format=4 uid="uid://dnuse57o6la7i"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_2gr58"]
 [ext_resource type="Texture2D" uid="uid://f8cfahns6npj" path="res://assets/env/oak_woods_v1.0/background/background_layer_1.png" id="1_huxry"]
@@ -36,6 +36,10 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -285, -1, 0, 0, 0, 0, 328, -1)
 }
 point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi8n6"]
+resource_local_to_scene = true
+size = Vector2(2887, 981)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ir3of"]
 resource_local_to_scene = true
@@ -157,6 +161,7 @@ reset_point = NodePath("../Marker2D")
 
 [node name="CollisionShape2D" parent="Water/Area2D" index="0"]
 position = Vector2(30, 272.5)
+shape = SubResource("RectangleShape2D_pi8n6")
 
 [node name="Polygon2D" parent="Water/Area2D" index="1"]
 color = Color(0.769691, 0.831855, 1, 0.52549)

@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bsn5w5x6h8hdr" path="res://PuzzleComponents/Water/death.wav" id="2_fig1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8sl4"]
+resource_local_to_scene = true
 size = Vector2(2887, 981)
 
 [node name="Water" type="Node2D" node_paths=PackedStringArray("area", "audio_player")]

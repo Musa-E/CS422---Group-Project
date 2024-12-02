@@ -159,6 +159,7 @@ _data = {
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("swipe_component", "animations", "camera", "character_body", "camera_follow_point", "sprite")]
 script = ExtResource("1_so0pf")
+ACCELERATION = 150.0
 SWIPE_FORCE = 250.0
 swipe_component = NodePath("Cat/Swipe")
 animations = NodePath("AnimationPlayer")
