@@ -122,7 +122,7 @@ position = Vector2(3591, -216)
 gizmo_extents = 20.0
 
 [node name="Fireflies" parent="." instance=ExtResource("9_nltuh")]
-position = Vector2(-1392, -25)
+position = Vector2(-1353, -41)
 
 [node name="CameraFocus" parent="." instance=ExtResource("10_xsqx8")]
 position = Vector2(3851, -381)

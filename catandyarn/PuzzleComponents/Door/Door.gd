@@ -11,6 +11,5 @@ extends Node2D
 
 func activate(body: Node2D) -> void:
 	queue_free()
-	#collider.call_deferred((isabled = true
 	body.collision_layer = 0
 	visible = false

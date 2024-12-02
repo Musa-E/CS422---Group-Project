@@ -2,12 +2,12 @@ extends Node2D
 
 @export var initial_obj: Node2D
 @export var spawn_position: Node2D
-
-var to_spawn: PackedScene
+@export var to_spawn: PackedScene = null
 
 func _ready() -> void:
-	to_spawn = PackedScene.new()
-	to_spawn.pack(initial_obj)
+	if initial_obj != null:
+		to_spawn = PackedScene.new()
+		to_spawn.pack(initial_obj)
 
 func activate(body: Node2D) -> void:
 	if to_spawn == null:

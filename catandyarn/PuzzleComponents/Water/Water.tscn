@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://PuzzleComponents/Water/Water.gd" id="1_y11gk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8sl4"]
+resource_local_to_scene = true
 size = Vector2(728, 956)
 
 [node name="Water" type="Node2D" node_paths=PackedStringArray("area")]
