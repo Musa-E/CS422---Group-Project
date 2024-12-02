@@ -21,8 +21,7 @@ func _on_ReappearTimer_timeout():
 	show()  # Show the platform again
 	collision_shape.disabled = false
 func _ready():
-	pass
 	# Connect signals (remove this if you've connected them in the editor)
 	#area.body_entered.connect(_on_Area2D_body_entered)
 	#break_timer.timeout.connect(_on_Timer_timeout)
-	#reappear_timer.timeout.connect(_on_ReappearTimer_timeout)
+	reappear_timer.timeout.connect(_on_ReappearTimer_timeout)
