@@ -19,6 +19,7 @@ extends Node2D
 @export var camera_follow_point: Node2D
 @export var cam_follow_stack: Array = []
 @export var can_swipe: bool = true
+@export var sprite: Sprite2D
 
 @onready var swipe_starting_pos = swipe_component.position
 
@@ -34,6 +35,9 @@ var current_state = State.IDLE
 var path: Path2D = null
 var attached_rope_segments = {}
 
+func _ready():
+	$AnimationPlayer.play("forward_idle")
+
 func handle_input(delta: float) -> Vector2:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -41,8 +45,18 @@ func handle_input(delta: float) -> Vector2:
 	var jump := 1 if Input.is_action_just_pressed("ui_accept") else 0
 	
 	# update the direction of the swipe
-	if direction < 0: swipe_component.position.x = swipe_starting_pos.x * -1
-	if direction > 0: swipe_component.position.x = swipe_starting_pos.x * 1
+	if direction < 0: 
+		swipe_component.position.x = swipe_starting_pos.x * -1
+		sprite.scale = Vector2(-5.04, sprite.scale.y)
+		$AnimationPlayer.play("walk_right")
+		
+	if direction > 0: 
+		swipe_component.position.x = swipe_starting_pos.x * 1
+		sprite.scale = Vector2(5.04, sprite.scale.y)
+		$AnimationPlayer.play("walk_right")
+	
+	if current_state == State.IDLE:
+		$AnimationPlayer.play("forward_idle")
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://tutorial.tscn")
@@ -79,7 +93,8 @@ func normal_movement(delta: float, input: Vector2) -> void:
 	if input.y != 0 and character_body.is_on_floor():
 		character_body.velocity.y = JUMP_VELOCITY
 
-	character_body.velocity.x = input.x * SPEED if input.x else move_toward(character_body.velocity.x, 0, ACCELERATION)
+	var accel = 1 if abs(character_body.velocity.x) > abs(input.x * SPEED) else ACCELERATION
+	character_body.velocity.x = move_toward(character_body.velocity.x, input.x * SPEED, accel) if input.x else move_toward(character_body.velocity.x, 0, ACCELERATION)
 	current_state = State.MOVING if character_body.velocity.x != 0 else State.IDLE
 	character_body.move_and_slide()
 	
@@ -109,7 +124,8 @@ func attached_movement(delta: float, input: Vector2) -> void:
 	if current_state != State.ATTACHED:
 		path_follow.progress = closest_offset
 		
-	path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
+	if direction != 0:
+		path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
 	# update the player position to be the global position of the pathfollow2D after all transformations
 	character_body.global_position = character_body.global_position.lerp(path_follow.global_position, 0.5)
 	current_state = State.ATTACHED

@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://mj1h7gujh78w"]
+
+[ext_resource type="Script" path="res://Yarn/yarn.gd" id="1_agk8k"]
+[ext_resource type="PhysicsMaterial" uid="uid://br8tjtpp4pch2" path="res://Yarn/YarnPhysicsMaterialBase.tres" id="3_u6uc0"]
+[ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="4_ffylm"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeCollisionShapeGenerator.gd" id="5_esurq"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeInteraction.gd" id="6_vpr3p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ocehp"]
+resource_local_to_scene = true
+radius = 21.0238
+
+[sub_resource type="Gradient" id="Gradient_jv16t"]
+offsets = PackedFloat32Array(0.470588, 0.475113)
+colors = PackedColorArray(0.91, 0.256772, 0.2457, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nalxt"]
+gradient = SubResource("Gradient_jv16t")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="YarnRoot" type="Node2D" node_paths=PackedStringArray("joint_parent")]
+script = ExtResource("1_agk8k")
+on_start_segments = 0
+rope_segment_length = 10000.0
+joint_parent = NodePath("Joint")
+
+[node name="Yarn" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 17
+mass = 2.0
+physics_material_override = ExtResource("3_u6uc0")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Yarn"]
+shape = SubResource("CircleShape2D_ocehp")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Yarn"]
+texture = SubResource("GradientTexture2D_nalxt")
+metadata/_edit_lock_ = true
+
+[node name="Joint" type="Node2D" parent="."]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Joint"]
+position = Vector2(0, -21)
+node_a = NodePath("../../Yarn")
+
+[node name="Rope" type="Node2D" parent="."]
+position = Vector2(0, -21)
+script = ExtResource("4_ffylm")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Rope"]
+collision_layer = 4
+
+[node name="RopeCollisionShapeGenerator" type="Node" parent="Rope/RigidBody2D"]
+script = ExtResource("5_esurq")
+rope_path = NodePath("../..")
+
+[node name="RopeInteraction" type="Node" parent="Rope/RigidBody2D" node_paths=PackedStringArray("rope")]
+script = ExtResource("6_vpr3p")
+enable = false
+rope = NodePath("../..")
