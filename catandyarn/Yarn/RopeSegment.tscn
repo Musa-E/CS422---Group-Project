@@ -58,6 +58,7 @@ script = ExtResource("2_co6v7")
 show_shapes = true
 vertex_interval = 5
 min_area = 0.1
+softness = 1.0
 radius = 4
 margin_offset_edge = 1.0
 mass = 1.0
@@ -122,6 +123,7 @@ metadata/_local_pose_override_enabled_ = true
 position = Vector2(2.25, 1)
 collision_layer = 4
 collision_mask = 9
+mass = 0.02
 physics_material_override = ExtResource("3_oyien")
 metadata/idx = 0
 metadata/bone_name = &"Bone-0"
@@ -140,12 +142,13 @@ visible = false
 rotation = -1.5708
 node_a = NodePath("..")
 node_b = NodePath("../../Bone-1")
-softness = 60.0
+softness = 1.0
 
 [node name="Bone-1" type="RigidBody2D" parent="."]
 position = Vector2(6, 1)
 collision_layer = 4
 collision_mask = 9
+mass = 0.02
 physics_material_override = ExtResource("3_oyien")
 metadata/idx = 1
 metadata/bone_name = &"Bone-1"
@@ -164,19 +167,20 @@ visible = false
 rotation = 1.5708
 node_a = NodePath("..")
 node_b = NodePath("../../Bone-0")
-softness = 60.0
+softness = 1.0
 
 [node name="Joint2D-Bone-1-Bone-2" type="PinJoint2D" parent="Bone-1"]
 visible = false
 rotation = -1.5708
 node_a = NodePath("..")
 node_b = NodePath("../../Bone-2")
-softness = 60.0
+softness = 1.0
 
 [node name="Bone-2" type="RigidBody2D" parent="."]
 position = Vector2(9, 1)
 collision_layer = 4
 collision_mask = 9
+mass = 0.02
 physics_material_override = ExtResource("3_oyien")
 metadata/idx = 2
 metadata/bone_name = &"Bone-2"
@@ -195,19 +199,20 @@ visible = false
 rotation = 1.5708
 node_a = NodePath("..")
 node_b = NodePath("../../Bone-1")
-softness = 60.0
+softness = 1.0
 
 [node name="Joint2D-Bone-2-Bone-3" type="PinJoint2D" parent="Bone-2"]
 visible = false
 rotation = -1.5708
 node_a = NodePath("..")
 node_b = NodePath("../../Bone-3")
-softness = 60.0
+softness = 1.0
 
 [node name="Bone-3" type="RigidBody2D" parent="."]
 position = Vector2(13.25, 1)
 collision_layer = 4
 collision_mask = 9
+mass = 0.02
 physics_material_override = ExtResource("3_oyien")
 metadata/idx = 3
 metadata/bone_name = &"Bone-3"
@@ -226,4 +231,4 @@ visible = false
 rotation = 1.5708
 node_a = NodePath("..")
 node_b = NodePath("../../Bone-2")
-softness = 60.0
+softness = 1.0

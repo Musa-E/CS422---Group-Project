@@ -1,15 +1,25 @@
 extends Node2D
 
-@export var skip_n_segments_for_path = 0
+## The scene for each rope segment.
 @export var rope_segment_scene: PackedScene = null
-@export var on_start_segments: int = 1
-@export var rope_segment_length: float
-@export var use_debug = true
-@export var joint_parent: Node2D
-@export var rope_path: Path2D # todo:: For some reason I need to set the offset of this inside of the editor to -722, -250, low priority bug
-@export var debug_line_draw: MeshInstance2D
+## Flag that enables or disables yarn rope growth. Set to true once the max number of segments is reached if max_segments > -1.
 @export var allow_expanding_yarn: bool = false
+## Controls how far the player can climb up the yarn rope.
+@export var skip_n_segments_for_path = 0
+## Creates n instances of rope segments when the scene is instanced.
+@export var on_start_segments: int = 1
+## Controls how often rope segments are created.
+@export var rope_segment_length: float
+## The mass of the yarn.
 @export var yarn_mass: float = 2
+## The maximum number of segments for the rope to create. Set to -1 for unlimited amount of segments.
+@export var max_segments: int = -1
+@export var joint_parent: Node2D
+@export var rope_path: Path2D
+## Flag for printing debug statements.
+@export var use_debug = true
+## Flag for printing the climb lines for the yarn ropes.
+@export var debug_line_draw: MeshInstance2D
 @onready var initial_rope_segment: SoftBody2D = $"Joint/SoftBody2D"
 @onready var initial_joint: PinJoint2D = $"Joint/PinJoint2D"
 @onready var rope_segments: Array[SoftBody2D] = []
@@ -19,7 +29,7 @@ extends Node2D
 var last_rotation = 0
 
 func _ready() -> void:
-	# set initial rope segment
+	 #set initial rope segment
 	rope_segments.append(initial_rope_segment)
 	initial_joint.node_a = yarn_body_component.get_path() # we are on the yarn
 	initial_joint.node_b = initial_rope_segment.get_node("Bone-0").get_path()
@@ -33,22 +43,26 @@ func create_new_rope_segment() -> void:
 	# define the new box
 	var rope_segment := rope_segment_scene.instantiate()
 	var next_pinjoint := PinJoint2D.new()
-	joint_parent.add_child(next_pinjoint)
-	joint_parent.add_child(rope_segment)
+	joint_parent.call_deferred("add_child", next_pinjoint)
+	joint_parent.call_deferred("add_child", rope_segment)
+	await rope_segment.ready
 	rope_segments.append(rope_segment)
 	next_pinjoint.global_position = rope_segments[-2].get_node("Bone-3").global_position
 	rope_segment.global_position = next_pinjoint.global_position
 	next_pinjoint.node_a = rope_segments[-2].get_node("Bone-3").get_path() # guaranteed to exist
 	next_pinjoint.node_b = rope_segments[-1].get_node("Bone-0").get_path()
 	rope_segments[-1].apply_impulse(rope_segments[-2].get_node("Bone-3").linear_velocity, rope_segments[-2].global_position)
-	next_pinjoint.bias = 0.5
+	next_pinjoint.bias = 0.9
 	
+	debug_segments += 1
+	if debug_segments >= max_segments and max_segments > -1:
+		allow_expanding_yarn = false
+		
 	if use_debug:
-		debug_segments += 1
 		print("Created new rope segment ", debug_segments)
 	
 func create_new_rope_segment_front() -> void:
-	# define the new box
+	 #define the new box
 	var rope_segment := rope_segment_scene.instantiate()
 	rope_segment.show_shapes = true
 	var next_pinjoint := PinJoint2D.new()
@@ -65,10 +79,9 @@ func create_new_rope_segment_front() -> void:
 	next_pinjoint.node_a = rope_segments[0].get_node("Bone-3").get_path() # guaranteed to exist
 	next_pinjoint.node_b = rope_segments[1].get_node("Bone-0").get_path()
 	rope_segments[0].apply_impulse(rope_segments[1].get_node("Bone-0").linear_velocity, rope_segments[1].global_position)
-	next_pinjoint.bias = 0.9
+	next_pinjoint.bias = 0.0
 	
-	if use_debug:
-		debug_segments += 1
+	debug_segments += 1
 	
 func update_rope_path() -> void:
 	# get each bone in the softbody and update the points in the existing path
@@ -90,7 +103,7 @@ func update_rope_path() -> void:
 				curve.add_point(gpos)
 
 	# draw the line in game if debug is active
-	if use_debug and curve.get_baked_length() > 0:
+	if use_debug:
 		var geom: ImmediateMesh = debug_line_draw.mesh
 		geom.clear_surfaces()
 		geom.surface_begin(Mesh.PRIMITIVE_LINES)
