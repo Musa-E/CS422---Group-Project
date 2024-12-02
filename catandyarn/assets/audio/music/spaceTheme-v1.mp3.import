@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/spaceTheme-v1.mp3-974f22f60f3cd5bae6f0c642176
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
