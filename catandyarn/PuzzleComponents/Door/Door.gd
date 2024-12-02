@@ -6,10 +6,11 @@ extends Node2D
 ## What the button connects to. Must have an "activate" function on it
 @export var connection: Node2D
 
-func _ready() -> void:
-	
+#func _ready() -> void:
+	#button_area.connect("body_entered")
 
 func activate(body: Node2D) -> void:
-	collider.disabled = true
+	queue_free()
+	#collider.call_deferred((isabled = true
 	body.collision_layer = 0
 	visible = false
