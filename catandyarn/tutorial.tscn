@@ -146,6 +146,7 @@ position = Vector2(5674, -441)
 
 [node name="Moving Platform3" parent="." instance=ExtResource("4_6pmlk")]
 position = Vector2(6264, -455)
+SPEED = 2.0
 
 [node name="Path2D" parent="Moving Platform3" index="1"]
 curve = SubResource("Curve2D_o0hrr")

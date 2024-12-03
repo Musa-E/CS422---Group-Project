@@ -3,6 +3,7 @@ extends Area2D
 @export var pin_body: PhysicsBody2D
 
 var can_pin = true
+var all_pinned_bodies = {}
 
 # when a rope segment collides with the yarn pin, stick the two together.
 func _on_body_entered(body: Node2D) -> void:
@@ -19,4 +20,10 @@ func _on_body_entered(body: Node2D) -> void:
 	joint.node_a = pin_body.get_path()
 	joint.node_b = body.get_path()
 	can_pin = false
+	all_pinned_bodies[body] = null
+
+func _on_body_exited(body: Node2D) -> void:
+	all_pinned_bodies.erase(body)
+	if (all_pinned_bodies.size() == 0):
+		can_pin = true
 	

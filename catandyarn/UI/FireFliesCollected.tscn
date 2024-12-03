@@ -10,20 +10,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uvk20")
-label = NodePath("MarginContainer/Label")
+label = NodePath("CanvasLayer/Control/MarginContainer/Label")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.905
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.08
-offset_left = -0.600098
-offset_bottom = -0.400009
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.906
+anchor_right = 0.999
+anchor_bottom = 0.081
+offset_left = -0.52002
+offset_right = 0.919922
+offset_bottom = 0.519997
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 27
 text = "Fireflies: 0/9"

@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://bno6xl1yj6iym"]
+[gd_scene load_steps=11 format=4 uid="uid://bno6xl1yj6iym"]
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_y4a7t"]
 [ext_resource type="PackedScene" uid="uid://bgvkvwqj880gg" path="res://PuzzleComponents/YarnSpawner/YarnSpawner.tscn" id="2_nbfr1"]
 [ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="3_anh62"]
 [ext_resource type="PackedScene" uid="uid://ckmgps75bg6rs" path="res://PuzzleComponents/YarnPin/YarnPin.tscn" id="4_qf2wk"]
-[ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="5_aifyv"]
 [ext_resource type="PackedScene" uid="uid://c4d77pgu3wpis" path="res://PuzzleComponents/CameraManipulators/CameraFocus.tscn" id="6_ogiqp"]
 [ext_resource type="PackedScene" uid="uid://bfnaxdtfj588e" path="res://PuzzleComponents/Water/Water.tscn" id="7_lkyov"]
 [ext_resource type="PackedScene" uid="uid://c8e4sgux2rw6c" path="res://PuzzleComponents/Fireflies/Fireflies.tscn" id="8_75ub5"]
@@ -15,7 +14,7 @@ size = Vector2(1432, 1320)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6n4dg"]
 resource_local_to_scene = true
-size = Vector2(768, 630)
+size = Vector2(768, 525)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8tdi"]
 resource_local_to_scene = true
@@ -60,20 +59,19 @@ position = Vector2(-28, -324)
 shape = SubResource("RectangleShape2D_il2ju")
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("5_aifyv")]
-position = Vector2(-1352, -208)
-
 [node name="Water" parent="." node_paths=PackedStringArray("reset_point") instance=ExtResource("7_lkyov")]
 position = Vector2(512, 712)
 reset_point = NodePath("../ResetPoint")
 
 [node name="CollisionShape2D" parent="Water/Area2D" index="0"]
-position = Vector2(128, 163)
+position = Vector2(128, 110.5)
 shape = SubResource("RectangleShape2D_6n4dg")
 
 [node name="Polygon2D" parent="Water/Area2D" index="1"]
-color = Color(0.270588, 0.529412, 1, 0.447059)
-polygon = PackedVector2Array(-256, -216, 512, -216, 512, 480, -256, 480)
+position = Vector2(0, 282.414)
+scale = Vector2(1, 2.30747)
+color = Color(0.270588, 0.529412, 1, 0.117647)
+polygon = PackedVector2Array(-256, -216, 512, -216, 512, 480, 126.661, 480, -256, 480)
 
 [node name="ResetPoint" type="Node2D" parent="."]
 position = Vector2(-56, 0)
@@ -92,6 +90,9 @@ polygon = PackedVector2Array(-32, -296, 32, -296, 32, 32, -32, 32)
 
 [node name="Fireflies" parent="." instance=ExtResource("8_75ub5")]
 position = Vector2(1120, 192)
+
+[node name="Fireflies2" parent="." instance=ExtResource("8_75ub5")]
+position = Vector2(866, -211)
 
 [node name="YarnPin" parent="." instance=ExtResource("4_qf2wk")]
 position = Vector2(1072, -72)
