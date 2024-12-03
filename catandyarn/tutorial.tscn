@@ -101,7 +101,7 @@ tile_map_data = PackedByteArray("AADG//z/AAAAAAAAAADG//3/AAAAAAEAAADG//7/AAAAAAI
 tile_set = ExtResource("1_2gr58")
 
 [node name="Cat" parent="." instance=ExtResource("2_ukjsm")]
-position = Vector2(0, -16)
+position = Vector2(-2, -20)
 SWIPE_FORCE = 500.0
 
 [node name="platform" parent="." instance=ExtResource("3_of13u")]
@@ -161,7 +161,6 @@ position = Vector2(7072, -824)
 skip_n_segments_for_path = 5
 on_start_segments = 25
 yarn_mass = 0.02
-use_debug = false
 metadata/_edit_group_ = true
 
 [node name="Yarn" parent="YarnRoot" index="0"]
@@ -215,7 +214,6 @@ shape = SubResource("RectangleShape2D_5q7ay")
 [node name="YarnRoot" parent="Area2D" instance=ExtResource("7_7kpop")]
 position = Vector2(-1206.47, -22.5955)
 allow_expanding_yarn = true
-use_debug = false
 
 [node name="Controls" type="Sprite2D" parent="."]
 position = Vector2(1, -356)

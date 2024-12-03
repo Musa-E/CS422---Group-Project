@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8e4sgux2rw6c"]
+[gd_scene load_steps=7 format=3 uid="uid://c8e4sgux2rw6c"]
+
+[ext_resource type="Script" path="res://PuzzleComponents/Fireflies/fireflies.gd" id="1_5m28f"]
 
 [sub_resource type="Gradient" id="Gradient_0ut51"]
 offsets = PackedFloat32Array(0.345794, 0.57757)
@@ -17,6 +19,9 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_60uk1"]
 offsets = PackedFloat32Array(0, 0.362799)
 colors = PackedColorArray(1, 1, 0, 0, 1, 1, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jejxx"]
+radius = 9.0
 
 [node name="Fireflies" type="CPUParticles2D"]
 amount = 10
@@ -45,7 +50,17 @@ scale_amount_curve = SubResource("Curve_y3fg7")
 color_ramp = SubResource("Gradient_60uk1")
 hue_variation_min = -0.25
 hue_variation_max = 0.1
+script = ExtResource("1_5m28f")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 1, 0, 1)
 energy = 8.14
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+shape = SubResource("CircleShape2D_jejxx")
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]

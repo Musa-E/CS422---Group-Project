@@ -46,7 +46,6 @@ allow_expanding_yarn = true
 skip_n_segments_for_path = 4
 on_start_segments = 3
 max_segments = 20
-use_debug = false
 
 [node name="YarnPin2" parent="." instance=ExtResource("4_qf2wk")]
 position = Vector2(432, -8)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://j13l0b4dt0ut"]
+
+[ext_resource type="Script" path="res://UI/fire_flies_collected.gd" id="1_uvk20"]
+
+[node name="FirefliesCollected" type="Control" node_paths=PackedStringArray("label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uvk20")
+label = NodePath("MarginContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.905
+anchor_right = 1.0
+anchor_bottom = 0.08
+offset_left = -0.600098
+offset_bottom = -0.400009
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 27
+text = "Fireflies: 0/9"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -2,12 +2,12 @@
 
 [ext_resource type="TileSet" uid="uid://fmb71r151dua" path="res://testTileSets.tres" id="1_b1h4j"]
 [ext_resource type="PackedScene" uid="uid://tpbw4ldbls7l" path="res://Player/Cat.tscn" id="2_ruj40"]
-[ext_resource type="PackedScene" uid="uid://b3uew8y5q6t12" path="res://PuzzleComponents/Platforms/MovingPlatform.tscn" id="3_6crn6"]
-[ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="5_276il"]
+[ext_resource type="PackedScene" uid="uid://bhl5ipw1sbdw" path="res://PuzzleComponents/Platforms/MovingPlatform.tscn" id="3_6crn6"]
 [ext_resource type="PackedScene" uid="uid://bgvkvwqj880gg" path="res://PuzzleComponents/YarnSpawner/YarnSpawner.tscn" id="6_yb51j"]
 [ext_resource type="PackedScene" uid="uid://c4d77pgu3wpis" path="res://PuzzleComponents/CameraManipulators/CameraFocus.tscn" id="7_4favc"]
 [ext_resource type="PackedScene" uid="uid://bfnaxdtfj588e" path="res://PuzzleComponents/Water/Water.tscn" id="8_4tm7g"]
 [ext_resource type="PackedScene" uid="uid://dhn4mpdvbombp" path="res://PuzzleComponents/Door/Door.tscn" id="9_6seoe"]
+[ext_resource type="PackedScene" uid="uid://bax30g2jqvhsw" path="res://Yarn/Yarn.tscn" id="9_dm62p"]
 [ext_resource type="PackedScene" uid="uid://c1gsgm5wnpjcw" path="res://PuzzleComponents/Button/Button.tscn" id="10_lwxci"]
 
 [sub_resource type="Curve2D" id="Curve2D_wih1k"]
@@ -32,7 +32,7 @@ tile_set = ExtResource("1_b1h4j")
 
 [node name="MovingPlatform" parent="." instance=ExtResource("3_6crn6")]
 position = Vector2(1013, 453)
-SPEED = 0.005
+SPEED = 3.0
 
 [node name="Path2D" parent="MovingPlatform" index="1"]
 curve = SubResource("Curve2D_wih1k")
@@ -40,11 +40,8 @@ curve = SubResource("Curve2D_wih1k")
 [node name="PathFollow2D" parent="MovingPlatform/Path2D" index="0"]
 position = Vector2(-370, 30)
 
-[node name="YarnRoot" parent="." instance=ExtResource("5_276il")]
-position = Vector2(1338, 427)
-on_start_segments = 25
-
 [node name="Area2D" parent="." instance=ExtResource("7_4favc")]
+visible = false
 position = Vector2(810, 326)
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
@@ -82,6 +79,10 @@ rotation = 1.5708
 
 [node name="Player" parent="." instance=ExtResource("2_ruj40")]
 position = Vector2(-664, 424)
+
+[node name="YarnRoot" parent="." instance=ExtResource("9_dm62p")]
+position = Vector2(1308, 428)
+on_start_segments = 20
 
 [connection signal="body_entered" from="Button/Area2D" to="Door" method="activate"]
 

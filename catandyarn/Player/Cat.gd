@@ -20,7 +20,6 @@ extends Node2D
 @export var cam_follow_stack: Array = []
 @export var can_swipe: bool = true
 @export var sprite: Sprite2D
-
 @onready var swipe_starting_pos = swipe_component.position
 
 enum State {
@@ -124,8 +123,7 @@ func attached_movement(delta: float, input: Vector2) -> void:
 	if current_state != State.ATTACHED:
 		path_follow.progress = closest_offset
 		
-	if direction != 0:
-		path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
+	path_follow.progress = lerp(path_follow.progress, path_follow.progress + direction * CLIMB_SPEED, 0.5)
 	# update the player position to be the global position of the pathfollow2D after all transformations
 	character_body.global_position = character_body.global_position.lerp(path_follow.global_position, 0.5)
 	current_state = State.ATTACHED
