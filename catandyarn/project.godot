@@ -10,11 +10,16 @@ config_version=5
 
 [application]
 
-config/name="CatAndYarn"
+config/name="CatAndYarn-gitVersion"
 run/main_scene="res://UI/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
+
+[autoload]
+
+AudioPlayer="*res://assets/audio/audio_player.tscn"
+GlobalSettings="*res://scripts/global_settings.gd"
 
 [display]
 
@@ -84,7 +89,7 @@ swipe={
 
 [physics]
 
-common/physics_ticks_per_second=144
+common/physics_ticks_per_second=90
 common/physics_jitter_fix=0.0
 common/physics_interpolation=true
 

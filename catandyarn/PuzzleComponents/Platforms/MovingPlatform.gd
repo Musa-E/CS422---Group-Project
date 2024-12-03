@@ -17,7 +17,7 @@ func _ready() -> void:
 		set_physics_process(true)
 
 func _physics_process(_delta: float) -> void:
-	path.progress_ratio += SPEED * direction
+	path.progress += SPEED * direction
 	platform.global_position = path.global_position
 	
 	if path.loop and (path.progress_ratio >= 1 or path.progress_ratio <= 0):
